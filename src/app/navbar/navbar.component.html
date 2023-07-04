@@ -1,0 +1,12 @@
+<div class="nav-bar">
+  <p class="nav-header">TicTicker</p>
+  <div class="nav-buttons">
+    <form action="GET" class="search-bar">
+      <input class="" type="text" placeholder="Search for tickers">
+    </form>
+    <div class="move-on-hover">ع</div>
+    <div class="move-on-hover" (click)="onDarkModeClicked()">
+      <svg-icon [src]="isDarkIconSrc" [svgStyle]="iconStyles"></svg-icon>
+    </div>
+  </div>
+</div>
