@@ -1,0 +1,12 @@
+.ticker-tile {
+  justify-content: space-between;
+}
+
+.card-body-1{
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-body-1 p{
+  flex-grow: 0;
+}

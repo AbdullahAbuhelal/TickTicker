@@ -1,7 +1,10 @@
-<div class="ticker-tile drop-shadow-button">
-  <h3>{{tickerName}}</h3>
-  <div>
-    <p>${{tickerPrice}}</p>
-    <svg-icon src="assets/icons/Favorite.svg" [svgStyle]="{'width.px': 25, 'height.px': 25}"></svg-icon>
+<div class="flex m-3 justify-center">
+  <div class="card w-96 bg-base-100 shadow-xl">
+    <div class="card-body">
+      <div class="card-body-1">
+        <p class="font-bold">{{tickerName}}</p>
+        <p class="font-bold">${{tickerPrice}}</p>
+      </div>
+    </div>
   </div>
 </div>
