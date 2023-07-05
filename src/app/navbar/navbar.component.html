@@ -5,7 +5,12 @@
   <div class="flex-none gap-2">
     <button class="btn btn-outline">ع</button>
     <div class="form-control">
-      <input (keyup)="searchTickers(keyword.value)" [value]="searchKeyword" type="text" placeholder="Search tickers" class="input input-bordered w-24 md:w-auto" #keyword/>
+      <input (keyup)="searchTickers(keyword.value)" [value]="searchKeyword" type="text" placeholder="Search tickers" class="input w-56 input-bordered w-24 md:w-auto" #keyword/>
     </div>
+    <ul *ngIf="searchResult.length>0" class="menu bg-base-200 w-56 rounded-box search-menu">
+      <li *ngFor="let result of searchResult">
+        <a href="">{{result["2. name"]}}</a>
+      </li>
+    </ul>
   </div>
 </div>
