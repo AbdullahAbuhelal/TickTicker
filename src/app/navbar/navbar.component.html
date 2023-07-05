@@ -1,15 +1,11 @@
-<div class="nav-bar">
-  <p class="nav-header">TicTicker</p>
-  <div class="nav-buttons">
-    <form action="GET" class="search-bar">
-      <input (keyup)="searchTickers(keyword.value)" [value]="searchKeyword" type="text" placeholder="Search for tickers" #keyword>
-      <ul>
-        <li *ngFor="let result of searchResult"> {{result["2. name"]}}</li>
-      </ul>
-    </form>
-    <div class="color-on-hover">ع</div>
-    <div class="color-on-hover" (click)="onDarkModeClicked()">
-      <svg-icon [src]="isDarkIconSrc" [svgStyle]="iconStyles"></svg-icon>
+<div class="navbar bg-base-100">
+  <div class="flex-1">
+    <a class="btn btn-ghost normal-case text-xl">TicTicker</a>
+  </div>
+  <div class="flex-none gap-2">
+    <button class="btn btn-outline">ع</button>
+    <div class="form-control">
+      <input (keyup)="searchTickers(keyword.value)" [value]="searchKeyword" type="text" placeholder="Search tickers" class="input input-bordered w-24 md:w-auto" #keyword/>
     </div>
   </div>
 </div>
