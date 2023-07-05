@@ -1,4 +1,5 @@
 .catch-phrase{
   justify-content: center;
-  align-items: baseline;
+  align-items: center;
+  height: 30vh;
 }

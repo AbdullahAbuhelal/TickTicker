@@ -1,5 +1,5 @@
 .search-menu{
   position: absolute;
-  right: 0.4rem;
-  top: 55px;
+  top: 64px;
+  z-index: 1;
 }
