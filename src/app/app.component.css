@@ -1,3 +1,4 @@
-p span.catch{
-  font-size: 7rem;
+.catch-phrase{
+  justify-content: center;
+  align-items: baseline;
 }

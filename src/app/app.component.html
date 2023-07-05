@@ -1,9 +1,11 @@
 <app-navbar></app-navbar>
 <div class="main-body">
-  <div class="catch-phrase">
-    <p>The <span class="catch">pulse</span> of the <strong>market</strong></p>
+  <div class="catch-phrase flex m-2 text-3xl">
+    <h2 class="font-bold m-1">The</h2>
+    <h1 class="text-7xl font-extrabold m-1">Pulse</h1>
+    <h2 class="font-bold m-1">of the market</h2>
   </div>
-  <h2>Favorites:</h2>
+  <h2 class="font-bold text-xl">Favorites:</h2>
   <app-ticker-tile [tickerName]="'APPL'" [tickerPrice]="190"></app-ticker-tile>
   <app-ticker-tile [tickerName]="'THBT'" [tickerPrice]="19099"></app-ticker-tile>
   <app-ticker-tile [tickerName]="'MJD'" [tickerPrice]="884"></app-ticker-tile>
