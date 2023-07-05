@@ -2,10 +2,13 @@
   <p class="nav-header">TicTicker</p>
   <div class="nav-buttons">
     <form action="GET" class="search-bar">
-      <input class="" type="text" placeholder="Search for tickers">
+      <input (keyup)="searchTickers(keyword.value)" [value]="searchKeyword" type="text" placeholder="Search for tickers" #keyword>
+      <ul>
+        <li *ngFor="let result of searchResult"> {{result["2. name"]}}</li>
+      </ul>
     </form>
-    <div class="move-on-hover">ع</div>
-    <div class="move-on-hover" (click)="onDarkModeClicked()">
+    <div class="color-on-hover">ع</div>
+    <div class="color-on-hover" (click)="onDarkModeClicked()">
       <svg-icon [src]="isDarkIconSrc" [svgStyle]="iconStyles"></svg-icon>
     </div>
   </div>

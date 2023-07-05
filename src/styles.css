@@ -80,7 +80,7 @@ body{
   margin: 5px;
 }
 
-.nav-buttons .move-on-hover:hover{
+.nav-buttons .color-on-hover:hover{
   color: var(--primary-container);
 }
 
