@@ -1,5 +1,5 @@
 <div class="flex m-3 justify-center">
-  <div class="card w-96 bg-base-100 shadow-xl hover:bg-neutral-content hover:cursor-pointer">
+  <a [routerLink]="['/tickers', tickerSymbol]" class="card w-96 bg-base-100 shadow-xl hover:bg-neutral-content">
     <div class="card-body">
       <div class="card-body-1">
         <p class="font-bold">{{tickerName}}</p>
@@ -10,5 +10,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </a>
 </div>

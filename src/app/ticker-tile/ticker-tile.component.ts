@@ -10,4 +10,6 @@ export class TickerTileComponent {
   tickerName = "";
   @Input()
   tickerPrice= 0;
+  @Input()
+  tickerSymbol: string | undefined;
 }

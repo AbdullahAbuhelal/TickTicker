@@ -8,13 +8,15 @@ import {AngularSvgIconModule} from "angular-svg-icon";
 import {HttpClientModule} from "@angular/common/http";
 import { MainPageComponent } from './main-page/main-page.component';
 import {RouterModule} from "@angular/router";
+import { TickerPageComponent } from './ticker-page/ticker-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     TickerTileComponent,
-    MainPageComponent
+    MainPageComponent,
+    TickerPageComponent
   ],
     imports: [
         BrowserModule,
@@ -22,7 +24,8 @@ import {RouterModule} from "@angular/router";
         HttpClientModule,
         AngularSvgIconModule.forRoot(),
         RouterModule.forRoot([
-          {path: '', component: MainPageComponent}
+          {path: '', component: MainPageComponent},
+          {path: 'tickers/:tickerSymbol', component: TickerPageComponent},
         ])
     ],
   providers: [],
