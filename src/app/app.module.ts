@@ -6,18 +6,24 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { TickerTileComponent } from './ticker-tile/ticker-tile.component';
 import {AngularSvgIconModule} from "angular-svg-icon";
 import {HttpClientModule} from "@angular/common/http";
+import { MainPageComponent } from './main-page/main-page.component';
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    TickerTileComponent
+    TickerTileComponent,
+    MainPageComponent
   ],
     imports: [
         BrowserModule,
         AngularSvgIconModule,
         HttpClientModule,
-        AngularSvgIconModule.forRoot()
+        AngularSvgIconModule.forRoot(),
+        RouterModule.forRoot([
+          {path: '', component: MainPageComponent}
+        ])
     ],
   providers: [],
   bootstrap: [AppComponent]
