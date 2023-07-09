@@ -29,6 +29,10 @@ export class TickerPageComponent {
     "10. change percent": 0
   };
 
+  tickerPrice = 0;
+  tickerHigh = 0;
+  tickerLow = 0;
+
   ngOnInit() {
     // First get the product id from the current route.
     const routeParams = this.route.snapshot.paramMap;
@@ -42,7 +46,9 @@ export class TickerPageComponent {
 
         this.tickerQuote = JSON.parse(JSON.stringify(data))["Global Quote"];
         console.log(this.tickerQuote);
-
+        this.tickerPrice = this.tickerQuote["05. price"];
+        this.tickerHigh = this.tickerQuote["03. high"];
+        this.tickerLow = this.tickerQuote["04. low"];
       },
       (error) => {
         console.log('something went wrong')
