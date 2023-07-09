@@ -21,7 +21,7 @@ export interface tickerQuoteEndpoint {
   "03. high": number,
   "04. low": number,
   "05. price": number,
-  "06. volume": "2982738",
+  "06. volume": number,
   "07. latest trading day": Date,
   "08. previous close": number,
   "09. change": number,
