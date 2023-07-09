@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {tickerQuoteEndpoint} from "../ticker";
+import {data} from "autoprefixer";
 
 @Component({
   selector: 'app-ticker-page',
@@ -33,15 +34,20 @@ export class TickerPageComponent {
   tickerHigh = 0;
   tickerLow = 0;
 
+  tickerTimeSeriesIntraday = {
+    "Meta Data": {},
+    "Time Series (5min)": {}
+  }
+
   ngOnInit() {
     // First get the product id from the current route.
     const routeParams = this.route.snapshot.paramMap;
     this.tickerSymbol = routeParams.get('tickerSymbol');
 
-    let searchUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${this.tickerSymbol}&apikey=${environment.APIKEY}`
+    let quoteUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${this.tickerSymbol}&apikey=${environment.APIKEY}`
 
 
-    this.http.get(searchUrl).subscribe(
+    this.http.get(quoteUrl).subscribe(
       (data) => {
 
         this.tickerQuote = JSON.parse(JSON.stringify(data))["Global Quote"];
@@ -52,6 +58,19 @@ export class TickerPageComponent {
       },
       (error) => {
         console.log('something went wrong')
+        console.log(error.toString());
+      }
+    )
+
+    let intradaySeriesUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.tickerSymbol}&interval=5min&apikey=${environment.APIKEY}`;
+
+    this.http.get(intradaySeriesUrl).subscribe(
+      (data) => {
+        this.tickerTimeSeriesIntraday = JSON.parse(JSON.stringify(data));
+        console.log(this.tickerTimeSeriesIntraday);
+      },
+      (error) => {
+        console.log('something went wrong');
         console.log(error.toString());
       }
     )

@@ -9,6 +9,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { MainPageComponent } from './main-page/main-page.component';
 import {RouterModule} from "@angular/router";
 import { TickerPageComponent } from './ticker-page/ticker-page.component';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TickerPageComponent } from './ticker-page/ticker-page.component';
         RouterModule.forRoot([
           {path: '', component: MainPageComponent},
           {path: 'tickers/:tickerSymbol', component: TickerPageComponent},
-        ])
+        ]),
+      CanvasJSAngularChartsModule
     ],
   providers: [],
   bootstrap: [AppComponent]
