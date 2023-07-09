@@ -1,1 +1,18 @@
-<p>{{tickerSymbol}}</p>
+<h1 class="text-3xl">{{tickerSymbol}}</h1>
+<div class="card w-60 shadow-xl">
+  <div class="card-body">
+    <h2 class="card-title">Ticker Summary</h2>
+    <div class="flex">
+      <p class="font-bold">Price</p>
+      <p>{{tickerPrice | currency}}</p>
+    </div>
+    <div class="flex">
+      <p class="font-bold">High</p>
+      <p>{{tickerHigh | currency}}</p>
+    </div>
+    <div class="flex">
+      <p class="font-bold">Low</p>
+      <p>{{tickerLow | currency}}</p>
+    </div>
+  </div>
+</div>
