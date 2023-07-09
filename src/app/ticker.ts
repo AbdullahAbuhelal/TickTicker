@@ -14,3 +14,16 @@ export interface tickerMetaData {
   "5. Output Size": string,
   "6. Time Zone": string
 }
+
+export interface tickerQuoteEndpoint {
+  "01. symbol": string,
+  "02. open": number,
+  "03. high": number,
+  "04. low": number,
+  "05. price": number,
+  "06. volume": "2982738",
+  "07. latest trading day": Date,
+  "08. previous close": number,
+  "09. change": number,
+  "10. change percent": number
+}
