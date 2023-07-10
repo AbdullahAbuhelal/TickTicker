@@ -41,6 +41,22 @@ export class TickerPageComponent {
 
   graphPoints: {}[] = []
 
+  chartOptions = {
+    theme: "light2",
+    animationEnabled: true,
+    zoomEnabled: true,
+    title: {
+      text: "Ticker Performance"
+    },
+    data: [{
+      type: "line",
+      xValueFormatString: "YYYY MM DD hh:mm",
+      yValueFormatString: "$#,###.##",
+      dataPoints: this.graphPoints
+    }]
+
+  }
+
   ngOnInit() {
     // First get the product id from the current route.
     const routeParams = this.route.snapshot.paramMap;
@@ -86,7 +102,26 @@ export class TickerPageComponent {
 
   extractCoordinatesFromTimeSeries(timeSeries: never[]) {
     for (const [key, value] of Object.entries(timeSeries)) {
-      this.graphPoints.push({x: key, y: value["1. open"]});
+      const dateString = key;
+      const dateParts = dateString.split(" ");
+      const date = dateParts[0];
+      const time = dateParts[1];
+
+      const datePartsArray = date.split("-");
+      const year = +datePartsArray[0];
+      const month = +datePartsArray[1] - 1;
+      const day = +datePartsArray[2];
+
+      const timePartsArray = time.split(":");
+      const hours = +timePartsArray[0];
+      const minutes = +timePartsArray[1];
+      const seconds = +timePartsArray[2];
+
+      const newDate = new Date(year, month, day, hours, minutes, seconds);
+      // console.log(newDate);
+      this.graphPoints.push({x: newDate, y: Number(value["1. open"])});
+
     }
+    console.log(this.graphPoints)
   }
 }
