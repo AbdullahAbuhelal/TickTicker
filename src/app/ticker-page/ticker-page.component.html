@@ -1,18 +1,35 @@
 <h1 class="text-3xl">{{tickerSymbol}}</h1>
-<div class="card w-60 shadow-xl">
-  <div class="card-body">
-    <h2 class="card-title">Ticker Summary</h2>
-    <div class="flex">
-      <p class="font-bold">Price</p>
-      <p>{{tickerPrice | currency}}</p>
-    </div>
-    <div class="flex">
-      <p class="font-bold">High</p>
-      <p>{{tickerHigh | currency}}</p>
-    </div>
-    <div class="flex">
-      <p class="font-bold">Low</p>
-      <p>{{tickerLow | currency}}</p>
+
+<div class="flex flex-wrap justify-center">
+  <div class="card w-60 shadow-xl">
+    <div class="card-body">
+      <h2 class="card-title">Ticker Summary</h2>
+      <div class="flex">
+        <p class="font-bold">Price</p>
+        <p>{{tickerPrice | currency}}</p>
+      </div>
+      <div class="flex">
+        <p class="font-bold">High</p>
+        <p>{{tickerHigh | currency}}</p>
+      </div>
+      <div class="flex">
+        <p class="font-bold">Low</p>
+        <p>{{tickerLow | currency}}</p>
+      </div>
     </div>
   </div>
+
+  <div class="card shadow-xl w-3/4 ml-1">
+    <div class="card-body">
+      <div class="dropdown dropdown-hover">
+        <label tabindex="0" class="btn m-1">Hover</label>
+        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+          <li><a>Item 1</a></li>
+          <li><a>Item 2</a></li>
+        </ul>
+      </div>
+      <canvasjs-chart [options]="chartOptions" [styles]="{width: '100%', height:'60vh'}"></canvasjs-chart>
+    </div>
+      </div>
+
 </div>
