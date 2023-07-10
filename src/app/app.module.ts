@@ -10,6 +10,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import {RouterModule} from "@angular/router";
 import { TickerPageComponent } from './ticker-page/ticker-page.component';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { TickerPerformanceCardComponent } from './ticker-performance-card/ticker-performance-card.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
     NavbarComponent,
     TickerTileComponent,
     MainPageComponent,
-    TickerPageComponent
+    TickerPageComponent,
+    TickerPerformanceCardComponent
   ],
     imports: [
         BrowserModule,

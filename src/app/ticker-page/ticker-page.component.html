@@ -18,18 +18,8 @@
       </div>
     </div>
   </div>
-
-  <div class="card shadow-xl w-3/4 ml-1">
-    <div class="card-body">
-      <div class="dropdown dropdown-hover">
-        <label tabindex="0" class="btn m-1">Hover</label>
-        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-          <li><a>Item 1</a></li>
-          <li><a>Item 2</a></li>
-        </ul>
-      </div>
-      <canvasjs-chart [options]="chartOptions" [styles]="{width: '100%', height:'60vh'}"></canvasjs-chart>
-    </div>
-      </div>
+  <div class="w-3/4">
+    <app-ticker-performance-card [chartOptions]="chartOptions"></app-ticker-performance-card>
+  </div>
 
 </div>

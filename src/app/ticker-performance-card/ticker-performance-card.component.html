@@ -1,0 +1,13 @@
+<div class="card shadow-xl ml-1">
+  <div class="card-body">
+    <div class="flex justify-center lg:justify-start">
+      <div class="dropdown dropdown-hover">
+        <label tabindex="0" class="btn m-1">{{currentChartType}}</label>
+        <ul tabindex="0"  class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+          <li #typeLi *ngFor="let type of chartTypes" (click)="onClick(typeLi.innerText)"><a>{{type}}</a></li>
+        </ul>
+      </div>
+    </div>
+    <canvasjs-chart [options]="chartOptions" [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>
+  </div>
+</div>
