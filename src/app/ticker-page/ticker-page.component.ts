@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {tickerQuoteEndpoint} from "../ticker";
+import {tickerPriceTimeSeriesStamp, tickerQuoteEndpoint} from "../ticker";
 import {data} from "autoprefixer";
 
 @Component({
@@ -35,9 +35,11 @@ export class TickerPageComponent {
   tickerLow = 0;
 
   tickerTimeSeriesIntraday = {
-    "Meta Data": {},
-    "Time Series (5min)": {}
+    "Meta Data": [],
+    "Time Series (5min)": []
   }
+
+  graphPoints: {}[] = []
 
   ngOnInit() {
     // First get the product id from the current route.
@@ -62,17 +64,29 @@ export class TickerPageComponent {
       }
     )
 
+    this.extractIntradaySeries();
+
+  }
+
+  extractIntradaySeries() {
     let intradaySeriesUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.tickerSymbol}&interval=5min&apikey=${environment.APIKEY}`;
 
     this.http.get(intradaySeriesUrl).subscribe(
       (data) => {
         this.tickerTimeSeriesIntraday = JSON.parse(JSON.stringify(data));
         console.log(this.tickerTimeSeriesIntraday);
+        this.extractCoordinatesFromTimeSeries(this.tickerTimeSeriesIntraday["Time Series (5min)"]);
       },
       (error) => {
         console.log('something went wrong');
         console.log(error.toString());
       }
     )
+  }
+
+  extractCoordinatesFromTimeSeries(timeSeries: never[]) {
+    for (const [key, value] of Object.entries(timeSeries)) {
+      this.graphPoints.push({x: key, y: value["1. open"]});
+    }
   }
 }
