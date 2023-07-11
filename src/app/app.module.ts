@@ -9,6 +9,8 @@ import {HttpClientModule} from "@angular/common/http";
 import { MainPageComponent } from './main-page/main-page.component';
 import {RouterModule} from "@angular/router";
 import { TickerPageComponent } from './ticker-page/ticker-page.component';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { TickerPerformanceCardComponent } from './ticker-performance-card/ticker-performance-card.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { TickerPageComponent } from './ticker-page/ticker-page.component';
     NavbarComponent,
     TickerTileComponent,
     MainPageComponent,
-    TickerPageComponent
+    TickerPageComponent,
+    TickerPerformanceCardComponent
   ],
     imports: [
         BrowserModule,
@@ -26,7 +29,8 @@ import { TickerPageComponent } from './ticker-page/ticker-page.component';
         RouterModule.forRoot([
           {path: '', component: MainPageComponent},
           {path: 'tickers/:tickerSymbol', component: TickerPageComponent},
-        ])
+        ]),
+      CanvasJSAngularChartsModule
     ],
   providers: [],
   bootstrap: [AppComponent]
