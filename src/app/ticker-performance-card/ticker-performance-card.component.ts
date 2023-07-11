@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-ticker-performance-card',
@@ -10,6 +10,8 @@ export class TickerPerformanceCardComponent {
     required: true
   }) chartOptions = {};
 
+  @Output() dataEvent = new EventEmitter<string>();
+
 
   currentChartType = "Intraday";
   chartTypes = [
@@ -20,6 +22,7 @@ export class TickerPerformanceCardComponent {
 
   onClick(input: string) {
     this.currentChartType = input;
+    this.dataEvent.emit(input);
   }
 
 }

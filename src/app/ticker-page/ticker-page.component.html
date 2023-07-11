@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="w-3/4">
-    <app-ticker-performance-card [chartOptions]="chartOptions"></app-ticker-performance-card>
+    <app-ticker-performance-card (dataEvent)="onTickerTypeReceived($event)" [chartOptions]="chartOptions"></app-ticker-performance-card>
   </div>
 
 </div>
