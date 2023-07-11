@@ -12,6 +12,7 @@ import { TickerPageComponent } from './ticker-page/ticker-page.component';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { TickerPerformanceCardComponent } from './ticker-performance-card/ticker-performance-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
           {path: 'tickers/:tickerSymbol', component: TickerPageComponent},
         ]),
       CanvasJSAngularChartsModule,
-      BrowserAnimationsModule
+      BrowserAnimationsModule,
+      MatSlideToggleModule
     ],
   providers: [],
   bootstrap: [AppComponent]
