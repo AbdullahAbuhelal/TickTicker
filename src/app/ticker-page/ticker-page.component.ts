@@ -231,14 +231,14 @@ export class TickerPageComponent {
     if (this.isTickerSaved) {
     //   remove the ticker from the saved list
       this.removeTickerStyle();
-      this.savedTickersList = [];
-      localStorage.setItem("savedTickersList", JSON.stringify(this.savedTickersList));
+      let tickerIndex = this.savedTickersList.indexOf(`${this.tickerSymbol}`);
+      this.savedTickersList.splice(tickerIndex);
     } else {
       // save ticker
       this.saveTickerStyle();
       this.savedTickersList.push(`${this.tickerSymbol}`);
-      localStorage.setItem("savedTickersList", JSON.stringify(this.savedTickersList));
     }
+    localStorage.setItem("savedTickersList", JSON.stringify(this.savedTickersList));
     this.isTickerSaved = !this.isTickerSaved
   }
 
