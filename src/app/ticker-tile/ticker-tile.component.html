@@ -1,12 +1,12 @@
 <div class="flex m-3 justify-center">
   <a [routerLink]="['/tickers', tickerSymbol]" class="card w-96 bg-base-100 shadow-xl hover:bg-neutral-content">
     <div class="card-body">
-      <div class="card-body-1">
-        <p class="font-bold">{{tickerSymbol}}</p>
-        <div class="flex items-center justify-between">
-          <p class="font-bold mr-3">${{tickerPrice}}</p>
-          <button class="btn btn-ghost btn-square btn-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>          </button>
+      <div class="card-body-1 items-center">
+        <p class="font-bold text-margin-zero">{{tickerSymbol}}</p>
+        <div class="flex">
+          <p class="font-bold text-margin-zero">{{tickerPrice | currency}}</p>
+<!--          <button class="btn btn-ghost btn-square btn-sm">-->
+<!--            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>          </button>-->
         </div>
       </div>
     </div>

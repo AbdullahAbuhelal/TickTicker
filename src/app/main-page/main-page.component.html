@@ -6,7 +6,7 @@
       <span class="font-bold m-1 ">of the market</span>
     </p>
   </div>
-  <h2 class="font-bold text-xl text-center">Favorites</h2>
+  <p class="font-bold text-xl text-center">Favorites</p>
   <div class="flex flex-wrap justify-center">
     <app-ticker-tile *ngFor="let item of savedTickers" [tickerSymbol]="item.symbol" [tickerPrice]="item.price"></app-ticker-tile>
     <app-ticker-tile [tickerPrice]="19099" tickerSymbol="THBT"></app-ticker-tile>

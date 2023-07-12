@@ -37,13 +37,18 @@ export class MainPageComponent {
 
       this.http.get(quoteUrl).subscribe(
         (data) => {
-          tickerQuote = JSON.parse(JSON.stringify(data))["Global Quote"];
-          let tickerPrice = tickerQuote["05. price"];
-          this.savedTickers.push({symbol: tickerSymbol, price: tickerPrice})
+          try {
+            tickerQuote = JSON.parse(JSON.stringify(data))["Global Quote"];
+            let tickerPrice = tickerQuote["05. price"];
+            this.savedTickers.push({symbol: tickerSymbol, price: tickerPrice})
+          } catch (e) {
+            this.savedTickers.push({symbol: tickerSymbol, price: NaN})
+          }
         },
         (error) => {
           console.log('something went wrong')
           console.log(error.toString());
+          this.savedTickers.push({symbol: tickerSymbol, price: NaN})
         }
       )
     })
