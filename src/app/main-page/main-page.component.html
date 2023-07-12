@@ -8,8 +8,8 @@
   </div>
   <h2 class="font-bold text-xl text-center">Favorites</h2>
   <div class="flex flex-wrap justify-center">
-    <app-ticker-tile [tickerName]="'APPL'" [tickerPrice]="190" [tickerSymbol]="'AAPL'"></app-ticker-tile>
-    <app-ticker-tile [tickerName]="'THBT'" [tickerPrice]="19099"></app-ticker-tile>
-    <app-ticker-tile [tickerName]="'MJD'" [tickerPrice]="884"></app-ticker-tile>
+    <app-ticker-tile *ngFor="let item of savedTickers" [tickerSymbol]="item.symbol" [tickerPrice]="item.price"></app-ticker-tile>
+    <app-ticker-tile [tickerPrice]="19099" tickerSymbol="THBT"></app-ticker-tile>
+    <app-ticker-tile [tickerPrice]="884" tickerSymbol="MJD"></app-ticker-tile>
   </div>
 </div>

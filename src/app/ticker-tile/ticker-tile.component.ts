@@ -7,8 +7,6 @@ import {Component, Input} from '@angular/core';
 })
 export class TickerTileComponent {
   @Input()
-  tickerName = "";
-  @Input()
   tickerPrice= 0;
   @Input()
   tickerSymbol: string | undefined;
