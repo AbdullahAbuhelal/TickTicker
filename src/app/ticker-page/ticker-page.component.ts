@@ -61,6 +61,9 @@ export class TickerPageComponent {
 
   savedTickersList: string[]= []
 
+  isSavedAlertShowed = false;
+  isRemovedAlertShowed = false;
+
   chartOptions = {
     theme: "light2",
     animationEnabled: true,
@@ -240,6 +243,13 @@ export class TickerPageComponent {
     }
     localStorage.setItem("savedTickersList", JSON.stringify(this.savedTickersList));
     this.isTickerSaved = !this.isTickerSaved
+
+    this.isSavedAlertShowed = this.isTickerSaved
+    this.isRemovedAlertShowed = !this.isTickerSaved
+    setTimeout(()=> {
+      this.isSavedAlertShowed = false;
+      this.isRemovedAlertShowed = false;
+    }, 2000)
   }
 
   saveTickerStyle() {
