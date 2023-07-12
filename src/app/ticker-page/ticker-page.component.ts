@@ -54,6 +54,11 @@ export class TickerPageComponent {
 
   graphPoints: {}[] = []
 
+  isTickerSaved = false;
+  saveStroke = "currentColor";
+  saveFill = "none";
+  saveStatement = "Save"
+
   chartOptions = {
     theme: "light2",
     animationEnabled: true,
@@ -99,6 +104,7 @@ export class TickerPageComponent {
       this.extractCoordinatesFromTimeSeries(this.tickerTimeSeriesIntraday["Time Series (5min)"], "Intraday")
     });
 
+  //   TODO: check if the ticker saved in storage
   }
 
   async onTickerTypeReceived(type: string) {
@@ -210,5 +216,19 @@ export class TickerPageComponent {
       this.graphPoints.push({x: newDate, y: Number(value["1. open"])});
     }
     console.log("graph points",this.graphPoints)
+  }
+
+  onTickerSave() {
+    if (this.isTickerSaved) {
+    //   remove the ticker from the saved list
+      this.saveFill = "none";
+      this.saveStroke = "currentColor";
+      this.saveStatement = "Save";
+    } else {
+      this.saveFill = "currentColor";
+      this.saveStroke = "none";
+      this.saveStatement = "Saved";
+    }
+    this.isTickerSaved = !this.isTickerSaved
   }
 }
