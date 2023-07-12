@@ -57,7 +57,9 @@ export class TickerPageComponent {
   isTickerSaved = false;
   saveStroke = "currentColor";
   saveFill = "none";
-  saveStatement = "Save"
+  saveStatement = "Save";
+
+  savedTickersList: string[]= []
 
   chartOptions = {
     theme: "light2",
@@ -105,6 +107,13 @@ export class TickerPageComponent {
     });
 
   //   TODO: check if the ticker saved in storage
+    this.savedTickersList = JSON.parse(`${localStorage.getItem('savedTickersList')}`)
+    let tickerFind = this.savedTickersList.find((symbol) => symbol==this.tickerSymbol);
+    this.isTickerSaved = typeof tickerFind != "undefined";
+    if (this.isTickerSaved) {
+      this.saveTickerStyle();
+    }
+    console.log("saved list", this.savedTickersList, this.isTickerSaved, tickerFind);
   }
 
   async onTickerTypeReceived(type: string) {
@@ -221,14 +230,27 @@ export class TickerPageComponent {
   onTickerSave() {
     if (this.isTickerSaved) {
     //   remove the ticker from the saved list
-      this.saveFill = "none";
-      this.saveStroke = "currentColor";
-      this.saveStatement = "Save";
+      this.removeTickerStyle();
+      this.savedTickersList = [];
+      localStorage.setItem("savedTickersList", JSON.stringify(this.savedTickersList));
     } else {
-      this.saveFill = "currentColor";
-      this.saveStroke = "none";
-      this.saveStatement = "Saved";
+      // save ticker
+      this.saveTickerStyle();
+      this.savedTickersList.push(`${this.tickerSymbol}`);
+      localStorage.setItem("savedTickersList", JSON.stringify(this.savedTickersList));
     }
     this.isTickerSaved = !this.isTickerSaved
   }
+
+  saveTickerStyle() {
+    this.saveFill = "currentColor";
+    this.saveStroke = "none";
+    this.saveStatement = "Saved";
+  }
+  removeTickerStyle() {
+    this.saveFill = "none";
+    this.saveStroke = "currentColor";
+    this.saveStatement = "Save";
+  }
 }
+
