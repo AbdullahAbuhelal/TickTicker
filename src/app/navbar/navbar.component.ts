@@ -16,6 +16,8 @@ export class NavbarComponent {
 
   searchKeyword = "";
 
+  isSearchBarInFocus = false;
+
   constructor(private http: HttpClient) {}
 
   searchTickers(keyword: string) {
@@ -42,5 +44,13 @@ export class NavbarComponent {
     document.body.classList.toggle('dark-mode');
     this.isDarkIconSrc = (this.isDark)? "assets/icons/icon _moon_.svg": "assets/icons/icon _sun 1_.svg";
     this.isDark = !this.isDark;
+  }
+
+  onSearchBarFocus() {
+    this.isSearchBarInFocus = true;
+  }
+
+  onSearchBarFocusOut() {
+    this.isSearchBarInFocus = false;
   }
 }

@@ -5,8 +5,8 @@
   <div class="flex-none gap-2">
     <button class="btn btn-outline">ع</button>
     <div class="form-control">
-      <input (keyup)="searchTickers(keyword.value)" [value]="searchKeyword" type="text" placeholder="Search tickers" class="input w-56 input-bordered" #keyword/>
-      <ul *ngIf="searchResult.length>0" class="menu bg-base-200 w-56 rounded-box search-menu drop-shadow-lg">
+      <input (keyup)="searchTickers(keyword.value)" (focusin)="onSearchBarFocus()" (focusout)="onSearchBarFocusOut()" [value]="searchKeyword" type="text" placeholder="Search tickers" class="input w-56 input-bordered" #keyword/>
+      <ul *ngIf="searchResult.length>0&&isSearchBarInFocus" class="menu bg-base-200 w-56 rounded-box search-menu drop-shadow-lg">
         <li *ngFor="let result of searchResult">
           <a href="">{{result["2. name"]}}</a>
         </li>
