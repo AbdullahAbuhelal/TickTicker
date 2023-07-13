@@ -13,4 +13,12 @@
       </ul>
     </div>
   </div>
+  <mat-form-field>
+    <input type="text" [formControl]="formControl" matInput [matAutocomplete]="auto" placeholder="Search colors">
+  </mat-form-field>
+  <mat-autocomplete #auto>
+    <mat-option *ngFor="let item of filterOptions | async" [value]="item">
+      <a [href]="item">{{item}}</a>
+    </mat-option>
+  </mat-autocomplete>
 </div>

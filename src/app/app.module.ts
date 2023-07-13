@@ -13,6 +13,9 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { TickerPerformanceCardComponent } from './ticker-performance-card/ticker-performance-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatInputModule} from "@angular/material/input";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -23,19 +26,22 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     TickerPageComponent,
     TickerPerformanceCardComponent
   ],
-    imports: [
-        BrowserModule,
-        AngularSvgIconModule,
-        HttpClientModule,
-        AngularSvgIconModule.forRoot(),
-        RouterModule.forRoot([
-          {path: '', component: MainPageComponent},
-          {path: 'tickers/:tickerSymbol', component: TickerPageComponent},
-        ]),
-      CanvasJSAngularChartsModule,
-      BrowserAnimationsModule,
-      MatSlideToggleModule
-    ],
+  imports: [
+    BrowserModule,
+    AngularSvgIconModule,
+    HttpClientModule,
+    AngularSvgIconModule.forRoot(),
+    RouterModule.forRoot([
+      {path: '', component: MainPageComponent},
+      {path: 'tickers/:tickerSymbol', component: TickerPageComponent},
+    ]),
+    CanvasJSAngularChartsModule,
+    BrowserAnimationsModule,
+    MatSlideToggleModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

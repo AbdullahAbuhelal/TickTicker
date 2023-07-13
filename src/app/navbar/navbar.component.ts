@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { environment } from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
+import {map, Observable, startWith} from "rxjs";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-navbar',
@@ -52,5 +54,20 @@ export class NavbarComponent {
 
   onSearchBarFocusOut() {
     this.isSearchBarInFocus = false;
+  }
+
+  colorsArray = [ "Red", "Blue", "Green" ]
+  filterOptions!: Observable<string[]>;
+  formControl = new FormControl("");
+
+  private _filter(value: string): string[] {
+    const searchValue = value.toLowerCase();
+    return this.colorsArray.filter(option => option.toLowerCase().includes(searchValue));
+  }
+
+  ngOnInit() {
+    this.filterOptions = this.formControl.valueChanges.pipe(
+      startWith(''),map(value => this._filter(value || ''))
+    )
   }
 }
