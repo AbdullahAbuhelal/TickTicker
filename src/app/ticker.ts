@@ -27,3 +27,8 @@ export interface tickerQuoteEndpoint {
   "09. change": number,
   "10. change percent": number
 }
+
+export interface tickerSearchResult {
+  symbol: string,
+  name: string
+}

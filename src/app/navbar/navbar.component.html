@@ -2,23 +2,13 @@
   <div class="flex-1">
     <a href="" class="btn btn-ghost normal-case text-xl">TicTicker</a>
   </div>
-  <div class="flex-none gap-2">
-    <button class="btn btn-outline">ع</button>
-    <div class="form-control">
-      <input (keyup)="searchTickers(keyword.value)" (focusin)="onSearchBarFocus()" (focusout)="onSearchBarFocusOut()" [value]="searchKeyword" type="text" placeholder="Search tickers" class="input w-56 input-bordered" #keyword/>
-      <ul *ngIf="searchResult.length>0&&isSearchBarInFocus" class="menu bg-base-200 w-56 rounded-box search-menu drop-shadow-lg">
-        <li *ngFor="let result of searchResult">
-          <a href="">{{result["2. name"]}}</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <mat-form-field>
-    <input type="text" [formControl]="formControl" matInput [matAutocomplete]="auto" placeholder="Search colors">
+
+  <mat-form-field class="w-56">
+    <input type="text" class="" (keyup)="onSearchKeyUp(searchKey.value)" [formControl]="searchFormControl" matInput [matAutocomplete]="autoSearch" [value]="searchKeyword" placeholder="Search Tickers" #searchKey>
   </mat-form-field>
-  <mat-autocomplete #auto>
-    <mat-option *ngFor="let item of filterOptions | async" [value]="item">
-      <a [href]="item">{{item}}</a>
+  <mat-autocomplete #autoSearch class="">
+    <mat-option *ngFor="let item of searchTickerObservable | async" [value]="item.symbol" (click)="navigateToTicker(item.symbol)" (keyup.enter)="navigateToTicker(item.symbol)">
+      {{item.symbol}} | {{item.name}}
     </mat-option>
   </mat-autocomplete>
 </div>
