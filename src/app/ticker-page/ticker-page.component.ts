@@ -6,6 +6,7 @@ import { tickerPriceTimeSeriesStamp, tickerQuoteEndpoint} from "../ticker";
 import {data} from "autoprefixer";
 import {firstValueFrom} from "rxjs";
 import {Chart} from "chart.js/auto";
+import 'chartjs-adapter-luxon';
 
 @Component({
   selector: 'app-ticker-page',
@@ -108,6 +109,7 @@ export class TickerPageComponent {
     this.getTimeSeries("Intraday", this.tickerSymbol).then(() => {
       console.log("Done waiting")
       this.extractCoordinatesFromTimeSeries(this.tickerTimeSeriesIntraday["Time Series (5min)"], "Intraday")
+      this.extractCoordinatesFromTimeSeriesJS(this.tickerTimeSeriesIntraday["Time Series (5min)"], "Intraday")
     });
 
   //   TODO: check if the ticker saved in storage
@@ -274,35 +276,78 @@ export class TickerPageComponent {
     this.currentChartType = newType
   }
 
+  chartPoints: {xs: any[], ys: number[]} = {
+    xs: [],
+    ys: []
+  }
+
   chart: any
   createChart(){
 
-    this.chart = new Chart("FirstChart", {
+    this.chart = new Chart("performanceGraph", {
       type: 'line', //this denotes tha type of chart
 
       data: {// values on X-Axis
-        labels: ['2022-05-10', '2022-05-11', '2022-05-12','2022-05-13',
-          '2022-05-14', '2022-05-15', '2022-05-16','2022-05-17', ],
+        labels: this.chartPoints.xs,
         datasets: [
           {
-            label: "Sales",
-            data: ['467','576', '572', '79', '92',
-              '574', '573', '576'],
+            label: "Price",
+            data: this.chartPoints.ys,
             backgroundColor: 'blue'
-          },
-          {
-            label: "Profit",
-            data: ['542', '542', '536', '327', '17',
-              '0.00', '538', '541'],
-            backgroundColor: 'limegreen'
           }
         ]
       },
       options: {
-        aspectRatio:2.5
+        aspectRatio:2.5,
+
+        scales: {
+          x: {
+            type: "time",
+          }
+        }
       }
 
     });
   }
+
+  extractCoordinatesFromTimeSeriesJS(timeSeries: never[] | Object, type: string ) {
+    this.graphPoints = [];
+    this.chart.destroy()
+    for (const [key, value] of Object.entries(timeSeries)) {
+      let newDate: Date = new Date();
+      if (type=="Intraday"){
+        const dateString = key;
+        const dateParts = dateString.split(" ");
+        const date = dateParts[0];
+        const time = dateParts[1];
+
+        const datePartsArray = date.split("-");
+        const year = +datePartsArray[0];
+        const month = +datePartsArray[1] - 1;
+        const day = +datePartsArray[2];
+
+        const timePartsArray = time.split(":");
+        const hours = +timePartsArray[0];
+        const minutes = +timePartsArray[1];
+        const seconds = +timePartsArray[2];
+
+        newDate = new Date(year, month, day, hours, minutes, seconds);
+      } else {
+        const dateString = key;
+        const dateParts = dateString.split("-");
+        const year = +dateParts[0];
+        const month = +dateParts[1] - 1;
+        const day = +dateParts[2];
+        newDate = new Date(year, month, day);
+      }
+      this.chartPoints.xs.push(newDate);
+      this.chartPoints.ys.push(Number(value["1. open"]));
+    }
+    console.log("chart points",this.chartPoints)
+    this.createChart()
+  }
+
+
 }
+
 
