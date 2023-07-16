@@ -262,5 +262,13 @@ export class TickerPageComponent {
     this.saveStroke = "currentColor";
     this.saveStatement = "Save";
   }
+
+//   chartjs
+  chartTypes = ["Intraday", "Weekly", "Monthly"]
+  currentChartType = this.chartTypes[0];
+
+  onClick(newType: string) {
+    this.currentChartType = newType
+  }
 }
 

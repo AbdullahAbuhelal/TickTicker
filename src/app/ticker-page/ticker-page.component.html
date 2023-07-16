@@ -28,6 +28,23 @@
     <app-ticker-performance-card (dataEvent)="onTickerTypeReceived($event)" [chartOptions]="chartOptions"></app-ticker-performance-card>
   </div>
 
+  <div class="w-3/4">
+    <div class="card shadow-xl ml-1">
+      <div class="card-body">
+        <div class="flex justify-center lg:justify-start">
+          <div class="dropdown dropdown-hover">
+            <label tabindex="0" class="btn m-1">{{currentChartType}}</label>
+            <ul tabindex="0"  class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+              <li #typeLi *ngFor="let type of chartTypes" (click)="onClick(typeLi.innerText)"><a>{{type}}</a></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
 </div>
 <div class="flex flex-col items-center fixed bottom-1 w-full opacity-80">
   <div *ngIf="isSavedAlertShowed" class="alert alert-success  w-fit">
@@ -39,4 +56,6 @@
     <span>{{tickerSymbol}} has been removed from favorites successfully!</span>
   </div>
 </div>
+
+
 
