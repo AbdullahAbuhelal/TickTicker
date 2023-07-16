@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import { tickerPriceTimeSeriesStamp, tickerQuoteEndpoint} from "../ticker";
-import {data} from "autoprefixer";
+import { tickerQuoteEndpoint} from "../ticker";
 import {firstValueFrom} from "rxjs";
 import {Chart} from "chart.js/auto";
 import 'chartjs-adapter-luxon';
+import zoomPlugin from 'chartjs-plugin-zoom';
+Chart.register(zoomPlugin);
 
 @Component({
   selector: 'app-ticker-page',
@@ -124,6 +125,7 @@ export class TickerPageComponent {
   }
 
   async onTickerTypeReceived(type: string) {
+    this.currentChartType = type;
     if (type=="Intraday") {
       if (!this.isIntradayLoaded) {
         console.log(type, "is not loaded")
@@ -225,7 +227,6 @@ export class TickerPageComponent {
 
   chart: any
   createChart(){
-
     this.chart = new Chart("performanceGraph", {
       type: 'line',
 
@@ -235,7 +236,7 @@ export class TickerPageComponent {
           {
             label: "Price",
             data: this.chartPoints.ys,
-            backgroundColor: 'blue',
+            backgroundColor: "#1D5D9B"
           }
         ]
       },
@@ -245,9 +246,22 @@ export class TickerPageComponent {
           x: {
             type: "time",
           }
+        },
+        plugins: {
+          zoom: {
+            zoom: {
+              wheel: {
+                enabled: true,
+              },
+              pinch: {
+                enabled: true
+              },
+              mode: 'xy',
+            }
+          }
         }
-      }
 
+      },
     });
   }
 
