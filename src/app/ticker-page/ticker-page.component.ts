@@ -108,7 +108,6 @@ export class TickerPageComponent {
     // this.extractIntradaySeries();
     this.getTimeSeries("Intraday", this.tickerSymbol).then(() => {
       console.log("Done waiting")
-      this.extractCoordinatesFromTimeSeries(this.tickerTimeSeriesIntraday["Time Series (5min)"], "Intraday")
       this.extractCoordinatesFromTimeSeriesJS(this.tickerTimeSeriesIntraday["Time Series (5min)"], "Intraday")
     });
 
@@ -131,7 +130,6 @@ export class TickerPageComponent {
         await this.getTimeSeries(type, this.tickerSymbol);
         console.log("done waiting", type)
       }
-      this.extractCoordinatesFromTimeSeries(this.tickerTimeSeriesIntraday["Time Series (5min)"], "Intraday");
       this.extractCoordinatesFromTimeSeriesJS(this.tickerTimeSeriesIntraday["Time Series (5min)"], "Intraday");
     } else if (type == "Weekly") {
       if (!this.isWeeklyLoaded) {
@@ -139,7 +137,6 @@ export class TickerPageComponent {
         await this.getTimeSeries(type, this.tickerSymbol);
         console.log("done waiting", type)
       }
-      this.extractCoordinatesFromTimeSeries(this.tickerTimeSeriesWeekly["Weekly Time Series"], "Weekly");
       this.extractCoordinatesFromTimeSeriesJS(this.tickerTimeSeriesWeekly["Weekly Time Series"], "Weekly");
     } else {
       if (!this.isMonthlyLoaded) {
@@ -147,7 +144,6 @@ export class TickerPageComponent {
         await this.getTimeSeries(type, this.tickerSymbol);
         console.log("done waiting", type)
       }
-      this.extractCoordinatesFromTimeSeries(this.tickerTimeSeriesMonthly["Monthly Time Series"], "Monthly");
       this.extractCoordinatesFromTimeSeriesJS(this.tickerTimeSeriesMonthly["Monthly Time Series"], "Monthly");
     }
   }
@@ -184,59 +180,6 @@ export class TickerPageComponent {
 
   }
 
-  extractIntradaySeries() {
-    let intradaySeriesUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.tickerSymbol}&interval=5min&apikey=${environment.APIKEY}`;
-
-    this.http.get(intradaySeriesUrl).subscribe(
-      (data) => {
-        this.tickerTimeSeriesIntraday = JSON.parse(JSON.stringify(data));
-        console.log(this.tickerTimeSeriesIntraday);
-        this.getTimeSeries("Intraday", "AAPL");
-        this.extractCoordinatesFromTimeSeries(this.tickerTimeSeriesIntraday["Time Series (5min)"], "Intraday");
-      },
-      (error) => {
-        console.log('something went wrong');
-        console.log(error.toString());
-      }
-    )
-  }
-
-
-
-  extractCoordinatesFromTimeSeries(timeSeries: never[] | Object, type: string ) {
-    this.graphPoints = [];
-
-    for (const [key, value] of Object.entries(timeSeries)) {
-      let newDate: Date = new Date();
-      if (type=="Intraday"){
-        const dateString = key;
-        const dateParts = dateString.split(" ");
-        const date = dateParts[0];
-        const time = dateParts[1];
-
-        const datePartsArray = date.split("-");
-        const year = +datePartsArray[0];
-        const month = +datePartsArray[1] - 1;
-        const day = +datePartsArray[2];
-
-        const timePartsArray = time.split(":");
-        const hours = +timePartsArray[0];
-        const minutes = +timePartsArray[1];
-        const seconds = +timePartsArray[2];
-
-        newDate = new Date(year, month, day, hours, minutes, seconds);
-      } else {
-        const dateString = key;
-        const dateParts = dateString.split("-");
-        const year = +dateParts[0];
-        const month = +dateParts[1] - 1;
-        const day = +dateParts[2];
-        newDate = new Date(year, month, day);
-      }
-      this.graphPoints.push({x: newDate, y: Number(value["1. open"])});
-    }
-    console.log("graph points",this.graphPoints)
-  }
 
   onTickerSave() {
     if (this.isTickerSaved) {
@@ -275,10 +218,6 @@ export class TickerPageComponent {
   chartTypes = ["Intraday", "Weekly", "Monthly"]
   currentChartType = this.chartTypes[0];
 
-  onClick(newType: string) {
-    this.currentChartType = newType
-  }
-
   chartPoints: {xs: any[], ys: number[]} = {
     xs: [],
     ys: []
@@ -288,21 +227,20 @@ export class TickerPageComponent {
   createChart(){
 
     this.chart = new Chart("performanceGraph", {
-      type: 'line', //this denotes tha type of chart
+      type: 'line',
 
-      data: {// values on X-Axis
+      data: {
         labels: this.chartPoints.xs,
         datasets: [
           {
             label: "Price",
             data: this.chartPoints.ys,
-            backgroundColor: 'blue'
+            backgroundColor: 'blue',
           }
         ]
       },
       options: {
-        aspectRatio:2.5,
-
+        // aspectRatio:2.5,
         scales: {
           x: {
             type: "time",
@@ -314,7 +252,8 @@ export class TickerPageComponent {
   }
 
   extractCoordinatesFromTimeSeriesJS(timeSeries: never[] | Object, type: string ) {
-    this.graphPoints = [];
+    this.chartPoints.xs = [];
+    this.chartPoints.ys = [];
     this.chart.destroy()
     for (const [key, value] of Object.entries(timeSeries)) {
       let newDate: Date = new Date();
