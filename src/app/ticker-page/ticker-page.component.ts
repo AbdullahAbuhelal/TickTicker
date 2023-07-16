@@ -132,6 +132,7 @@ export class TickerPageComponent {
         console.log("done waiting", type)
       }
       this.extractCoordinatesFromTimeSeries(this.tickerTimeSeriesIntraday["Time Series (5min)"], "Intraday");
+      this.extractCoordinatesFromTimeSeriesJS(this.tickerTimeSeriesIntraday["Time Series (5min)"], "Intraday");
     } else if (type == "Weekly") {
       if (!this.isWeeklyLoaded) {
         console.log(type, "is not loaded")
@@ -139,6 +140,7 @@ export class TickerPageComponent {
         console.log("done waiting", type)
       }
       this.extractCoordinatesFromTimeSeries(this.tickerTimeSeriesWeekly["Weekly Time Series"], "Weekly");
+      this.extractCoordinatesFromTimeSeriesJS(this.tickerTimeSeriesWeekly["Weekly Time Series"], "Weekly");
     } else {
       if (!this.isMonthlyLoaded) {
         console.log(type, "is not loaded")
@@ -146,6 +148,7 @@ export class TickerPageComponent {
         console.log("done waiting", type)
       }
       this.extractCoordinatesFromTimeSeries(this.tickerTimeSeriesMonthly["Monthly Time Series"], "Monthly");
+      this.extractCoordinatesFromTimeSeriesJS(this.tickerTimeSeriesMonthly["Monthly Time Series"], "Monthly");
     }
   }
 

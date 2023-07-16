@@ -35,7 +35,7 @@
           <div class="dropdown dropdown-hover">
             <label tabindex="0" class="btn m-1">{{currentChartType}}</label>
             <ul tabindex="0"  class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-              <li #typeLi *ngFor="let type of chartTypes" (click)="onClick(typeLi.innerText)"><a>{{type}}</a></li>
+              <li #typeLi *ngFor="let type of chartTypes" (click)="onTickerTypeReceived(typeLi.innerText)"><a>{{type}}</a></li>
             </ul>
           </div>
         </div>
