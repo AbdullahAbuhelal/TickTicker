@@ -3,5 +3,13 @@
     "logo": "TickTicker",
     "lan": "ع",
     "search": "Search Tickers"
+  },
+  "main": {
+    "hero": {
+      "span1": "The",
+      "bold": "Pulse",
+      "span2": "of the market"
+    },
+    "fav": "Favorites"
   }
 }
