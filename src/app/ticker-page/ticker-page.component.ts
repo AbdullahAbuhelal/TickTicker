@@ -58,6 +58,7 @@ export class TickerPageComponent {
   isMonthlyLoaded = false;
 
   graphPoints: {}[] = []
+  graphLoaded = false
 
   isTickerSaved = false;
   saveStroke = "currentColor";
@@ -86,7 +87,7 @@ export class TickerPageComponent {
   }
 
   ngOnInit() {
-    // First get the product id from the current route.
+    // First get the ticker id from the current route.
     const routeParams = this.route.snapshot.paramMap;
     this.tickerSymbol = routeParams.get('tickerSymbol');
 
@@ -123,7 +124,7 @@ export class TickerPageComponent {
     }
     console.log("saved list", this.savedTickersList, this.isTickerSaved, tickerFind);
 
-    this.createChart();
+    // this.createChart();
   }
 
   async onTickerTypeReceived(type: string) {
@@ -281,7 +282,10 @@ export class TickerPageComponent {
   extractCoordinatesFromTimeSeriesJS(timeSeries: never[] | Object, type: string ) {
     this.chartPoints.xs = [];
     this.chartPoints.ys = [];
-    this.chart.destroy()
+    if (this.graphLoaded) {
+      this.chart.destroy()
+      this.graphLoaded = true
+    }
     for (const [key, value] of Object.entries(timeSeries)) {
       let newDate: Date = new Date();
       if (type=="Intraday"){
