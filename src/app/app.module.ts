@@ -16,6 +16,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {ReactiveFormsModule} from "@angular/forms";
+import { TranslocoRootModule } from './transloco-root.module';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatSlideToggleModule,
     MatInputModule,
     MatAutocompleteModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslocoRootModule
   ],
   providers: [],
   bootstrap: [AppComponent]
