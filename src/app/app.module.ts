@@ -17,6 +17,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {ReactiveFormsModule} from "@angular/forms";
 import { TranslocoRootModule } from './transloco-root.module';
+import { LoadingTickerTileComponent } from './loading-ticker-tile/loading-ticker-tile.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { TranslocoRootModule } from './transloco-root.module';
     TickerTileComponent,
     MainPageComponent,
     TickerPageComponent,
-    TickerPerformanceCardComponent
+    TickerPerformanceCardComponent,
+    LoadingTickerTileComponent
   ],
   imports: [
     BrowserModule,

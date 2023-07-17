@@ -8,8 +8,15 @@
   </div>
   <p class="font-bold text-xl text-center">{{t('fav')}}</p>
   <div class="flex flex-wrap justify-center">
-    <app-ticker-tile *ngFor="let item of savedTickers" [tickerSymbol]="item.symbol" [tickerPrice]="item.price"></app-ticker-tile>
-    <app-ticker-tile [tickerPrice]="19099" tickerSymbol="THBT"></app-ticker-tile>
-    <app-ticker-tile [tickerPrice]="884" tickerSymbol="MJD"></app-ticker-tile>
+   <div *ngIf="isLoadingTiles">
+     <app-loading-ticker-tile></app-loading-ticker-tile>
+     <app-loading-ticker-tile></app-loading-ticker-tile>
+     <app-loading-ticker-tile></app-loading-ticker-tile>
+   </div>
+    <div *ngIf="!isLoadingTiles">
+      <app-ticker-tile *ngFor="let item of savedTickers" [tickerSymbol]="item.symbol" [tickerPrice]="item.price"></app-ticker-tile>
+    </div>
+<!--    <app-ticker-tile [tickerPrice]="19099" tickerSymbol="THBT"></app-ticker-tile>-->
+<!--    <app-ticker-tile [tickerPrice]="884" tickerSymbol="MJD"></app-ticker-tile>-->
   </div>
 </div>

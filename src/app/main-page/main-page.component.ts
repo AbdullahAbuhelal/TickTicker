@@ -15,10 +15,12 @@ export class MainPageComponent {
   savedTickersList: string[] = [];
   savedTickers: {symbol: string, price: number}[] = []
 
+  isLoadingTiles= true;
+
 
   ngOnInit() {
     this.savedTickersList = JSON.parse(`${localStorage.getItem('savedTickersList')}`);
-
+    if (this.savedTickersList.length == 0) this.isLoadingTiles = false;
     // GET tickers quotes
     this.savedTickersList.forEach((tickerSymbol) => {
       let quoteUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${tickerSymbol}&apikey=${environment.APIKEY}`
@@ -34,15 +36,17 @@ export class MainPageComponent {
         "09. change": 0,
         "10. change percent": 0
       };
-
+      this.isLoadingTiles = true
       this.http.get(quoteUrl).subscribe(
         (data) => {
           try {
             tickerQuote = JSON.parse(JSON.stringify(data))["Global Quote"];
             let tickerPrice = tickerQuote["05. price"];
             this.savedTickers.push({symbol: tickerSymbol, price: tickerPrice})
+            this.isLoadingTiles = false
           } catch (e) {
             this.savedTickers.push({symbol: tickerSymbol, price: NaN})
+            this.isLoadingTiles = false
           }
         },
         (error) => {
@@ -52,6 +56,7 @@ export class MainPageComponent {
         }
       )
     })
+    // this.isLoadingTiles = false;
 
   }
 }
