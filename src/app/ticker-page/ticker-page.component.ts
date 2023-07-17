@@ -102,10 +102,12 @@ export class TickerPageComponent {
         this.tickerPrice = this.tickerQuote["05. price"];
         this.tickerHigh = this.tickerQuote["03. high"];
         this.tickerLow = this.tickerQuote["04. low"];
+        this.isSummaryLoading = false;
       },
       (error) => {
         console.log('something went wrong')
         console.log(error.toString());
+        this.isSummaryLoading = false;
       }
     )
 
@@ -240,6 +242,7 @@ export class TickerPageComponent {
   }
 
   chart: any
+  isSummaryLoading = true;
   createChart(){
     this.chart = new Chart("performanceGraph", {
       type: 'line',
