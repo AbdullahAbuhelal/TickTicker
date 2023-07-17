@@ -11,5 +11,18 @@
       "span2": "of the market"
     },
     "fav": "Favorites"
+  },
+  "ticker": {
+    "summary": "Ticker Summary",
+    "price": "Price",
+    "high": "High",
+    "low": "Low",
+    "Intraday": "Intraday",
+    "Weekly": "Weekly",
+    "Monthly": "Monthly",
+    "Save": "Save",
+    "Saved": "Saved",
+    "alert save": "{{tickerSymbol}} has been saved to favorites successfully!",
+    "alert remove": "{{tickerSymbol}} has been removed from favorites successfully!"
   }
 }

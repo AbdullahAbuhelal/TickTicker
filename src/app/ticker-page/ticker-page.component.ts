@@ -8,6 +8,8 @@ import {Chart} from "chart.js/auto";
 import 'chartjs-adapter-luxon';
 import zoomPlugin from 'chartjs-plugin-zoom';
 Chart.register(zoomPlugin);
+import { TranslocoService } from '@ngneat/transloco';
+
 
 @Component({
   selector: 'app-ticker-page',
@@ -16,7 +18,7 @@ Chart.register(zoomPlugin);
 })
 export class TickerPageComponent {
   // constructor() { }
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute, private translocoService: TranslocoService) {}
 
 
   tickerSymbol: string | null = "";
@@ -125,6 +127,17 @@ export class TickerPageComponent {
   }
 
   async onTickerTypeReceived(type: string) {
+    switch (type) {
+      case ("خلال اليوم"):
+        type = this.chartTypes[0]
+        break;
+      case ("اسبوعي"):
+        type = this.chartTypes[1]
+        break;
+      case ("شهري"):
+        type = this.chartTypes[2]
+        break;
+    }
     this.currentChartType = type;
     if (type=="Intraday") {
       if (!this.isIntradayLoaded) {
@@ -234,7 +247,7 @@ export class TickerPageComponent {
         labels: this.chartPoints.xs,
         datasets: [
           {
-            label: "Price",
+            label: this.translocoService.translate('ticker.price'),
             data: this.chartPoints.ys,
             backgroundColor: "#1D5D9B"
           }

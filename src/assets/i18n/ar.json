@@ -11,5 +11,18 @@
       "span2": " السوق"
     },
     "fav": "المفضلة"
+  },
+  "ticker": {
+    "summary": "ملخص السهم",
+    "price": "السعر",
+    "high": "أعلى",
+    "low": "أدنى",
+    "Intraday": "خلال اليوم",
+    "Weekly": "اسبوعي",
+    "Monthly": "شهري",
+    "Save": "حفظ",
+    "Saved": "تم الحفظ",
+    "alert save": "تم حفظ الرمز {{tickerSymbol}} بنجاح",
+    "alert remove": "تم إزالة الرمز {{tickerSymbol}} بنجاح"
   }
 }
