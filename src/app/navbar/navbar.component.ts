@@ -6,6 +6,8 @@ import {FormControl} from "@angular/forms";
 import {Router} from "@angular/router";
 import { TranslocoService } from '@ngneat/transloco';
 
+
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -30,6 +32,10 @@ export class NavbarComponent {
   searchTickerObservable!: Observable<any>
   searchFormControl = new FormControl("");
 
+  ngOnInit() {
+    if (this.getLanguage()=="ar") this.changeLanguageToArabic();
+  }
+
   onSearchKeyUp(value: string) {
     // TODO: move this to 'ngOnInit' [I could not make it work so I did it this way]
     this.searchKeyword = value;
@@ -53,11 +59,26 @@ export class NavbarComponent {
     let activeLanguage = this.translocoService.getActiveLang()
     console.log(activeLanguage)
     if (activeLanguage=='ar') {
-      this.translocoService.setActiveLang('en')
-      document.documentElement.removeAttribute('dir')
+      this.changeLanguageToEnglish();
     } else {
-      this.translocoService.setActiveLang('ar')
-      document.documentElement.setAttribute('dir', 'rtl')
+      this.changeLanguageToArabic();
     }
+  }
+
+  private changeLanguageToEnglish() {
+    this.translocoService.setActiveLang('en')
+    localStorage.setItem(this.languageKey, 'en')
+    document.documentElement.removeAttribute('dir')
+  }
+
+  private changeLanguageToArabic() {
+    this.translocoService.setActiveLang('ar')
+    localStorage.setItem(this.languageKey, 'ar')
+    document.documentElement.setAttribute('dir', 'rtl')
+  }
+
+  languageKey = "lan";
+  getLanguage() {
+    return localStorage.getItem(this.languageKey) || navigator.language;
   }
 }
