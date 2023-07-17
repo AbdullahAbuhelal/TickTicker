@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import { firstValueFrom, map, Observable } from "rxjs";
 import {FormControl} from "@angular/forms";
 import {Router} from "@angular/router";
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +19,7 @@ export class NavbarComponent {
 
   searchKeyword = "";
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private translocoService: TranslocoService) {}
   onDarkModeClicked() {
     document.body.classList.toggle('dark-mode');
     this.isDarkIconSrc = (this.isDark)? "assets/icons/icon _moon_.svg": "assets/icons/icon _sun 1_.svg";
@@ -46,5 +47,17 @@ export class NavbarComponent {
     this.router.navigateByUrl("/").then(
       () => this.router.navigate(["/tickers", symbol])
     )
+  }
+
+  onChangeLanguage() {
+    let activeLanguage = this.translocoService.getActiveLang()
+    console.log(activeLanguage)
+    if (activeLanguage=='ar') {
+      this.translocoService.setActiveLang('en')
+      document.documentElement.removeAttribute('dir')
+    } else {
+      this.translocoService.setActiveLang('ar')
+      document.documentElement.setAttribute('dir', 'rtl')
+    }
   }
 }

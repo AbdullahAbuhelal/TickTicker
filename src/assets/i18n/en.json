@@ -1,1 +1,7 @@
-{}
+{
+  "navbar": {
+    "logo": "TickTicker",
+    "lan": "ع",
+    "search": "Search Tickers"
+  }
+}
