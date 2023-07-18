@@ -287,8 +287,8 @@ export class TickerPageComponent {
     this.chartPoints.ys = [];
     if (this.graphLoaded) {
       this.chart.destroy()
-      this.graphLoaded = true
     }
+    this.graphLoaded = true
     for (const [key, value] of Object.entries(timeSeries)) {
       let newDate: Date = new Date();
       if (type=="Intraday"){
@@ -324,6 +324,9 @@ export class TickerPageComponent {
   }
 
 
+  resetGraph() {
+    this.chart.resetZoom();
+  }
 }
 
 

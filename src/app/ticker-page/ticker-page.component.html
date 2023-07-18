@@ -48,6 +48,9 @@
           <div class="chart-container h-fit">
             <canvas id="performanceGraph"> {{chart}}</canvas>
           </div>
+          <div class="flex justify-end">
+            <button (click)="resetGraph()" class="btn btn-ghost btn-sm m-1">Reset zoom</button>
+          </div>
         </div>
       </div>
 
