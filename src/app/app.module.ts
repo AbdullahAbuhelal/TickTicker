@@ -19,6 +19,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { TranslocoRootModule } from './transloco-root.module';
 import { LoadingTickerTileComponent } from './loading-ticker-tile/loading-ticker-tile.component';
 import { LoadinTickerSummaryCardComponent } from './loadin-ticker-summary-card/loadin-ticker-summary-card.component';
+import { LoadingPerformanceGraphCardComponent } from "./loading-performance-graph-card/loading-performance-graph-card.component";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { LoadinTickerSummaryCardComponent } from './loadin-ticker-summary-card/l
     TickerPageComponent,
     TickerPerformanceCardComponent,
     LoadingTickerTileComponent,
-    LoadinTickerSummaryCardComponent
+    LoadinTickerSummaryCardComponent,
+    LoadingPerformanceGraphCardComponent
   ],
   imports: [
     BrowserModule,
