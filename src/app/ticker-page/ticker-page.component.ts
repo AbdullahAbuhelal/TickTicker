@@ -167,6 +167,8 @@ export class TickerPageComponent {
   }
 
   async getTimeSeries(type: string, symbol: string | null) {
+    this.isGraphLoading = true;
+    console.log("graph by id", document.getElementById("performanceGraph"))
     let fun = (type=="Intraday")? "TIME_SERIES_INTRADAY" :
       (type=="Monthly")? "TIME_SERIES_MONTHLY" :
     "TIME_SERIES_WEEKLY";
@@ -194,8 +196,7 @@ export class TickerPageComponent {
     } catch (e) {
       console.log("Cannot fetch time series", e)
     }
-
-
+    this.isGraphLoading = false;
   }
 
 
@@ -243,6 +244,7 @@ export class TickerPageComponent {
 
   chart: any
   isSummaryLoading = true;
+  isGraphLoading = true;
   createChart(){
     this.chart = new Chart("performanceGraph", {
       type: 'line',

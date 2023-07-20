@@ -32,9 +32,9 @@
       </div>
     </div>
 
-    <app-loadin-ticker-summary-card *ngIf="isSummaryLoading"></app-loadin-ticker-summary-card>
 
-    <div class="w-3/4 h-0.5">
+    <app-loadin-ticker-summary-card *ngIf="isSummaryLoading"></app-loadin-ticker-summary-card>
+    <div [ngStyle]="{display: isGraphLoading? 'none': 'block'}" class="w-3/4 h-0.5">
       <div class="card shadow-xl ml-1">
         <div class="card-body">
           <div class="flex justify-center lg:justify-start">
@@ -53,7 +53,10 @@
           </div>
         </div>
       </div>
+    </div>
 
+    <div *ngIf="isGraphLoading" class="w-3/4">
+      <app-loading-performance-graph-card></app-loading-performance-graph-card>
     </div>
 
   </div>
