@@ -10,19 +10,24 @@
       "bold": "Pulse",
       "span2": "of the market"
     },
-    "fav": "Favorites"
+    "fav": "Favorites",
+    "no-fav": "No favorites saved!",
+    "no-tkr-price": "Could not get the stock price!"
   },
   "ticker": {
-    "summary": "Ticker Summary",
+    "summary": "Stock Summary",
     "price": "Price",
     "high": "High",
     "low": "Low",
+    "no-summary": "Could not get the stock summary!",
     "Intraday": "Intraday",
     "Weekly": "Weekly",
     "Monthly": "Monthly",
     "Save": "Save",
     "Saved": "Saved",
+    "no-chart": "Could not load chart data!",
     "alert save": "{{tickerSymbol}} has been saved to favorites successfully!",
-    "alert remove": "{{tickerSymbol}} has been removed from favorites successfully!"
+    "alert remove": "{{tickerSymbol}} has been removed from favorites successfully!",
+    "reset-zoom": "Reset zoom"
   }
 }

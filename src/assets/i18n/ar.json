@@ -10,19 +10,24 @@
       "bold": "نبض",
       "span2": " السوق"
     },
-    "fav": "المفضلة"
+    "fav": "المفضلة",
+    "no-fav": "لا يوجد رموز محفوظة!",
+    "no-tkr-price": "تعذر الحصول على سعر السهم!"
   },
   "ticker": {
     "summary": "ملخص السهم",
     "price": "السعر",
     "high": "أعلى",
     "low": "أدنى",
+    "no-summary": "تعذر الحصول على ملخص السهم!",
     "Intraday": "خلال اليوم",
     "Weekly": "اسبوعي",
     "Monthly": "شهري",
     "Save": "حفظ",
     "Saved": "تم الحفظ",
+    "no-chart": "تعذر الحصول على بيانات السهم",
     "alert save": "تم حفظ الرمز {{tickerSymbol}} بنجاح",
-    "alert remove": "تم إزالة الرمز {{tickerSymbol}} بنجاح"
+    "alert remove": "تم إزالة الرمز {{tickerSymbol}} بنجاح",
+    "reset-zoom": "إعادة ضبط التكبير"
   }
 }

@@ -36,7 +36,7 @@
           <h2 class="card-title">{{t('summary')}}</h2>
           <div class="flex flex-col justify-center items-center mt-5">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-            <p class="text-center mt-2">Could not get ticker summary!</p>
+            <p class="text-center mt-2">{{t('no-summary')}}</p>
           </div>
 
         </div>
@@ -62,12 +62,12 @@
             <ng-template #chartFailed>
               <div class="flex flex-col justify-center items-center m-10">
                 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                <p class="mt-2">Could not load chart data!</p>
+                <p class="mt-2">{{t('no-chart')}}</p>
               </div>
             </ng-template>
           </div>
           <div class="flex justify-end">
-            <button (click)="resetGraph()" class="btn btn-ghost btn-sm m-1">Reset zoom</button>
+            <button (click)="resetGraph()" class="btn btn-ghost btn-sm m-1">{{t('reset-zoom')}}</button>
           </div>
         </div>
       </div>
