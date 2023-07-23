@@ -72,6 +72,7 @@ export class TickerPageComponent {
 
   // err handling
   isSummaryFailed = false;
+  isChartFailed = false;
 
   chartOptions = {
     theme: "light2",
@@ -120,9 +121,7 @@ export class TickerPageComponent {
       }
     )
 
-    // this.extractIntradaySeries();
-    this.getTimeSeries("Intraday", this.tickerSymbol).then(() => {
-      console.log("Done waiting")
+      this.getTimeSeries("Intraday", this.tickerSymbol).then(() => {
       this.extractCoordinatesFromTimeSeriesJS(this.tickerTimeSeriesIntraday["Time Series (5min)"], "Intraday")
     });
 
@@ -204,6 +203,7 @@ export class TickerPageComponent {
       }
     } catch (e) {
       console.log("Cannot fetch time series", e)
+      this.isChartFailed = true;
     }
     this.isGraphLoading = false;
   }
@@ -294,44 +294,50 @@ export class TickerPageComponent {
   }
 
   extractCoordinatesFromTimeSeriesJS(timeSeries: never[] | Object, type: string ) {
-    this.chartPoints.xs = [];
-    this.chartPoints.ys = [];
-    if (this.graphLoaded) {
-      this.chart.destroy()
-    }
-    this.graphLoaded = true
-    for (const [key, value] of Object.entries(timeSeries)) {
-      let newDate: Date = new Date();
-      if (type=="Intraday"){
-        const dateString = key;
-        const dateParts = dateString.split(" ");
-        const date = dateParts[0];
-        const time = dateParts[1];
+    try {
 
-        const datePartsArray = date.split("-");
-        const year = +datePartsArray[0];
-        const month = +datePartsArray[1] - 1;
-        const day = +datePartsArray[2];
-
-        const timePartsArray = time.split(":");
-        const hours = +timePartsArray[0];
-        const minutes = +timePartsArray[1];
-        const seconds = +timePartsArray[2];
-
-        newDate = new Date(year, month, day, hours, minutes, seconds);
-      } else {
-        const dateString = key;
-        const dateParts = dateString.split("-");
-        const year = +dateParts[0];
-        const month = +dateParts[1] - 1;
-        const day = +dateParts[2];
-        newDate = new Date(year, month, day);
+      this.chartPoints.xs = [];
+      this.chartPoints.ys = [];
+      if (this.graphLoaded) {
+        this.chart.destroy()
       }
-      this.chartPoints.xs.push(newDate);
-      this.chartPoints.ys.push(Number(value["1. open"]));
+      this.graphLoaded = true
+      for (const [key, value] of Object.entries(timeSeries)) {
+        let newDate: Date = new Date();
+        if (type=="Intraday"){
+          const dateString = key;
+          const dateParts = dateString.split(" ");
+          const date = dateParts[0];
+          const time = dateParts[1];
+
+          const datePartsArray = date.split("-");
+          const year = +datePartsArray[0];
+          const month = +datePartsArray[1] - 1;
+          const day = +datePartsArray[2];
+
+          const timePartsArray = time.split(":");
+          const hours = +timePartsArray[0];
+          const minutes = +timePartsArray[1];
+          const seconds = +timePartsArray[2];
+
+          newDate = new Date(year, month, day, hours, minutes, seconds);
+        } else {
+          const dateString = key;
+          const dateParts = dateString.split("-");
+          const year = +dateParts[0];
+          const month = +dateParts[1] - 1;
+          const day = +dateParts[2];
+          newDate = new Date(year, month, day);
+        }
+        this.chartPoints.xs.push(newDate);
+        this.chartPoints.ys.push(Number(value["1. open"]));
+      }
+      console.log("chart points",this.chartPoints)
+      this.createChart()
+
+    } catch (e) {
+      this.isChartFailed = true;
     }
-    console.log("chart points",this.chartPoints)
-    this.createChart()
   }
 
 
