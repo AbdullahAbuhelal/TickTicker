@@ -70,6 +70,9 @@ export class TickerPageComponent {
   isSavedAlertShowed = false;
   isRemovedAlertShowed = false;
 
+  // err handling
+  isSummaryFailed = false;
+
   chartOptions = {
     theme: "light2",
     animationEnabled: true,
@@ -99,15 +102,21 @@ export class TickerPageComponent {
 
         this.tickerQuote = JSON.parse(JSON.stringify(data))["Global Quote"];
         console.log(this.tickerQuote);
-        this.tickerPrice = this.tickerQuote["05. price"];
-        this.tickerHigh = this.tickerQuote["03. high"];
-        this.tickerLow = this.tickerQuote["04. low"];
+        try {
+          this.tickerPrice = this.tickerQuote["05. price"];
+          this.tickerHigh = this.tickerQuote["03. high"];
+          this.tickerLow = this.tickerQuote["04. low"];
+        } catch (e) {
+          console.log("summary failed");
+          this.isSummaryFailed = true;
+        }
         this.isSummaryLoading = false;
       },
       (error) => {
         console.log('something went wrong')
         console.log(error.toString());
         this.isSummaryLoading = false;
+        this.isSummaryFailed = true;
       }
     )
 
