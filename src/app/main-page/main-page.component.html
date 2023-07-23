@@ -13,6 +13,7 @@
     <app-loading-ticker-tile></app-loading-ticker-tile>
   </div>
   <div *ngIf="!isLoadingTiles" class="flex flex-wrap justify-center w-full" >
+    <p *ngIf="!isThereFavorites" class="text-transparent/50 m-5">No favorites saved!</p>
     <app-ticker-tile *ngFor="let item of savedTickers" [tickerSymbol]="item.symbol" [tickerPrice]="item.price"></app-ticker-tile>
   </div>
 </div>

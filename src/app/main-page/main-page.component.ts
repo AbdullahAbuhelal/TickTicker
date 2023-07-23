@@ -16,11 +16,13 @@ export class MainPageComponent {
   savedTickers: {symbol: string, price: number}[] = []
 
   isLoadingTiles= true;
+  isThereFavorites = false;
 
 
   ngOnInit() {
     this.savedTickersList = JSON.parse(`${localStorage.getItem('savedTickersList')}`);
     if (this.savedTickersList.length == 0) this.isLoadingTiles = false;
+    this.isThereFavorites = this.savedTickersList.length > 0;
     // GET tickers quotes
     this.savedTickersList.forEach((tickerSymbol) => {
       let quoteUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${tickerSymbol}&apikey=${environment.APIKEY}`
