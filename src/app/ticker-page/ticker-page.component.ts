@@ -214,7 +214,7 @@ export class TickerPageComponent {
     //   remove the ticker from the saved list
       this.removeTickerStyle();
       let tickerIndex = this.savedTickersList.indexOf(`${this.tickerSymbol}`);
-      this.savedTickersList.splice(tickerIndex);
+      this.savedTickersList.splice(tickerIndex, 1);
     } else {
       // save ticker
       this.saveTickerStyle();
