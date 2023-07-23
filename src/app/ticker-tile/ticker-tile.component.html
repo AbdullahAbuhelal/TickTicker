@@ -4,7 +4,8 @@
       <div class="card-body-1 items-center">
         <p class="font-bold text-margin-zero">{{tickerSymbol}}</p>
         <div class="flex">
-          <p class="font-bold text-margin-zero">{{tickerPrice | currency}}</p>
+          <p *ngIf="isNaN(tickerPrice); else priceTag">Could not get ticker price!</p>
+          <ng-template class="font-bold text-margin-zero" #priceTag>{{tickerPrice | currency}}</ng-template>
         </div>
       </div>
     </div>

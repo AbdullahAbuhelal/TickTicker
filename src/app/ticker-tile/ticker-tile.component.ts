@@ -7,7 +7,8 @@ import {Component, Input} from '@angular/core';
 })
 export class TickerTileComponent {
   @Input()
-  tickerPrice= 0;
+  tickerPrice = 0;
   @Input()
   tickerSymbol: string | undefined;
+  protected readonly isNaN = isNaN;
 }
