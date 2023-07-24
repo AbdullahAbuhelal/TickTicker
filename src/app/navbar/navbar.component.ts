@@ -23,9 +23,10 @@ export class NavbarComponent {
 
   constructor(private http: HttpClient, private router: Router, private translocoService: TranslocoService) {}
   onDarkModeClicked() {
-    document.body.classList.toggle('dark-mode');
-    this.isDarkIconSrc = (this.isDark)? "assets/icons/icon _moon_.svg": "assets/icons/icon _sun 1_.svg";
-    this.isDark = !this.isDark;
+    let newTheme = (this.getTheme()=="light")? "dark" : "light"
+    document.documentElement.setAttribute("data-theme", newTheme)
+    localStorage.setItem(this.themeKey, newTheme)
+    console.log(newTheme)
   }
 
 
@@ -34,6 +35,7 @@ export class NavbarComponent {
 
   ngOnInit() {
     if (this.getLanguage()=="ar") this.changeLanguageToArabic();
+    if (this.getTheme()=="dark") this.onDarkModeClicked();
   }
 
   onSearchKeyUp(value: string) {
@@ -80,5 +82,10 @@ export class NavbarComponent {
   languageKey = "lan";
   getLanguage() {
     return localStorage.getItem(this.languageKey) || navigator.language;
+  }
+
+  themeKey = "theme"
+  private getTheme() {
+    return localStorage.getItem(this.themeKey) ?? "light"
   }
 }
