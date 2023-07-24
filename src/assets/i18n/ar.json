@@ -25,7 +25,7 @@
     "Monthly": "شهري",
     "Save": "حفظ",
     "Saved": "تم الحفظ",
-    "no-chart": "تعذر الحصول على بيانات السهم",
+    "no-chart": "تعذر الحصول على بيانات السهم!",
     "alert save": "تم حفظ الرمز {{tickerSymbol}} بنجاح",
     "alert remove": "تم إزالة الرمز {{tickerSymbol}} بنجاح",
     "reset-zoom": "إعادة ضبط التكبير"
