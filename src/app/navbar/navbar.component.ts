@@ -22,11 +22,12 @@ export class NavbarComponent {
   searchKeyword = "";
 
   constructor(private http: HttpClient, private router: Router, private translocoService: TranslocoService) {}
-  onDarkModeClicked() {
-    let newTheme = (this.getTheme()=="light")? "dark" : "light"
+  switchTheme(newTheme: string) {
+
     document.documentElement.setAttribute("data-theme", newTheme)
     localStorage.setItem(this.themeKey, newTheme)
-    console.log(newTheme)
+    this.isDark = newTheme == "dark"
+
   }
 
 
@@ -35,7 +36,13 @@ export class NavbarComponent {
 
   ngOnInit() {
     if (this.getLanguage()=="ar") this.changeLanguageToArabic();
-    if (this.getTheme()=="dark") this.onDarkModeClicked();
+    if (this.getTheme()=="dark") {
+      console.log("theme is", this.getTheme())
+      this.switchTheme("dark");
+      this.isDark = true
+    } else {
+      this.switchTheme("light")
+    }
   }
 
   onSearchKeyUp(value: string) {
@@ -85,6 +92,7 @@ export class NavbarComponent {
   }
 
   themeKey = "theme"
+  isDarkOnInit = false;
   private getTheme() {
     return localStorage.getItem(this.themeKey) ?? "light"
   }
