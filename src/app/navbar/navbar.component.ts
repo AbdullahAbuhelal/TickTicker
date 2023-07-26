@@ -17,8 +17,6 @@ import {ThemeService} from "../services/theme.service";
 export class NavbarComponent {
 
   isDark = false;
-  isDarkIconSrc = "assets/icons/icon _moon_.svg";
-  iconStyles = {'width.px':25, 'height.px':25};
 
   searchKeyword = "";
 
@@ -36,13 +34,11 @@ export class NavbarComponent {
 
   ngOnInit() {
     if (this.getLanguage()=="ar") this.changeLanguageToArabic();
-    if (this.themeService.getTheme()=="dark") {
-      console.log("theme is", this.themeService.getTheme())
-      this.themeService.switchTheme("dark");
-      this.isDark = true
-    } else {
-      this.themeService.switchTheme("light")
-    }
+    let theme = this.themeService.getCurrentTheme().subscribe(
+      value => {
+        this.isDark = (value == 'dark')
+      }
+    )
   }
 
   onSearchKeyUp(value: string) {
@@ -93,7 +89,6 @@ export class NavbarComponent {
 
   switchTheme(newTheme: string) {
     this.themeService.switchTheme(newTheme)
-    this.isDark = newTheme == 'dark'
   }
 
 }

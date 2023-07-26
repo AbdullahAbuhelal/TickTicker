@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,9 @@ export class ThemeService {
 
   themeKey = "theme"
 
-  getTheme() {
+  private currentTheme = new BehaviorSubject<string>(this.getTheme())
+
+  private getTheme() {
     return localStorage.getItem(this.themeKey) ?? "light"
   }
 
@@ -16,8 +19,15 @@ export class ThemeService {
 
     document.documentElement.setAttribute("data-theme", newTheme)
     localStorage.setItem(this.themeKey, newTheme)
+    this.currentTheme.next(newTheme)
 
   }
 
-  constructor() { }
+  getCurrentTheme() {
+    return this.currentTheme.asObservable()
+  }
+
+  constructor() {
+    this.switchTheme(this.currentTheme.value)
+  }
 }
