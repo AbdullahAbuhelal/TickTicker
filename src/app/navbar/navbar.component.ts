@@ -5,6 +5,7 @@ import { firstValueFrom, map, Observable } from "rxjs";
 import {FormControl} from "@angular/forms";
 import {Router} from "@angular/router";
 import { TranslocoService } from '@ngneat/transloco';
+import {ThemeService} from "../services/theme.service";
 
 
 
@@ -21,14 +22,13 @@ export class NavbarComponent {
 
   searchKeyword = "";
 
-  constructor(private http: HttpClient, private router: Router, private translocoService: TranslocoService) {}
-  switchTheme(newTheme: string) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private translocoService: TranslocoService,
+    private themeService: ThemeService
+  ) {}
 
-    document.documentElement.setAttribute("data-theme", newTheme)
-    localStorage.setItem(this.themeKey, newTheme)
-    this.isDark = newTheme == "dark"
-
-  }
 
 
   searchTickerObservable!: Observable<any>
@@ -36,12 +36,12 @@ export class NavbarComponent {
 
   ngOnInit() {
     if (this.getLanguage()=="ar") this.changeLanguageToArabic();
-    if (this.getTheme()=="dark") {
-      console.log("theme is", this.getTheme())
-      this.switchTheme("dark");
+    if (this.themeService.getTheme()=="dark") {
+      console.log("theme is", this.themeService.getTheme())
+      this.themeService.switchTheme("dark");
       this.isDark = true
     } else {
-      this.switchTheme("light")
+      this.themeService.switchTheme("light")
     }
   }
 
@@ -91,9 +91,9 @@ export class NavbarComponent {
     return localStorage.getItem(this.languageKey) || navigator.language;
   }
 
-  themeKey = "theme"
-  isDarkOnInit = false;
-  private getTheme() {
-    return localStorage.getItem(this.themeKey) ?? "light"
+  switchTheme(newTheme: string) {
+    this.themeService.switchTheme(newTheme)
+    this.isDark = newTheme == 'dark'
   }
+
 }
