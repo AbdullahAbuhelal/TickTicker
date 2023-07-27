@@ -10,6 +10,7 @@ import zoomPlugin from 'chartjs-plugin-zoom';
 Chart.register(zoomPlugin);
 import { TranslocoService } from '@ngneat/transloco';
 import {ThemeService} from "../services/theme.service";
+import {FavoriteTickersService} from "../services/favorite-tickers.service";
 
 
 @Component({
@@ -24,11 +25,12 @@ export class TickerPageComponent {
     private http: HttpClient,
     private route: ActivatedRoute,
     private translocoService: TranslocoService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private favoriteTickerService: FavoriteTickersService
   ) {}
 
 
-  tickerSymbol: string | null = "";
+  tickerSymbol: string = "";
 
   tickerQuote: tickerQuoteEndpoint = {
     "01. symbol": "",
@@ -72,8 +74,6 @@ export class TickerPageComponent {
   saveFill = "none";
   saveStatement = "Save";
 
-  savedTickersList: string[]= []
-
   isSavedAlertShowed = false;
   isRemovedAlertShowed = false;
 
@@ -100,7 +100,7 @@ export class TickerPageComponent {
   ngOnInit() {
     // First get the ticker id from the current route.
     const routeParams = this.route.snapshot.paramMap;
-    this.tickerSymbol = routeParams.get('tickerSymbol');
+    this.tickerSymbol = routeParams.get('tickerSymbol') ?? "";
 
     let quoteUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${this.tickerSymbol}&apikey=${environment.APIKEY}`
 
@@ -132,14 +132,11 @@ export class TickerPageComponent {
       this.extractCoordinatesFromTimeSeriesJS(this.tickerTimeSeriesIntraday["Time Series (5min)"], "Intraday")
     });
 
-  //   TODO: check if the ticker saved in storage
-    this.savedTickersList = JSON.parse(`${localStorage.getItem('savedTickersList')}`) ?? []
-    let tickerFind = this.savedTickersList.find((symbol) => symbol==this.tickerSymbol);
-    this.isTickerSaved = typeof tickerFind != "undefined";
+  //  check if the ticker saved in storage
+    this.isTickerSaved = this.favoriteTickerService.isTickerSaved(this.tickerSymbol)
     if (this.isTickerSaved) {
       this.saveTickerStyle();
     }
-    console.log("saved list", this.savedTickersList, this.isTickerSaved, tickerFind);
 
   //   keep track of the theme changing
     this.themeService.getCurrentTheme().subscribe(
@@ -230,14 +227,12 @@ export class TickerPageComponent {
     if (this.isTickerSaved) {
     //   remove the ticker from the saved list
       this.removeTickerStyle();
-      let tickerIndex = this.savedTickersList.indexOf(`${this.tickerSymbol}`);
-      this.savedTickersList.splice(tickerIndex, 1);
+      this.favoriteTickerService.removeTicker(this.tickerSymbol)
     } else {
       // save ticker
       this.saveTickerStyle();
-      this.savedTickersList.push(`${this.tickerSymbol}`);
+      this.favoriteTickerService.addTicker(this.tickerSymbol);
     }
-    localStorage.setItem("savedTickersList", JSON.stringify(this.savedTickersList));
     this.isTickerSaved = !this.isTickerSaved
 
     this.isSavedAlertShowed = this.isTickerSaved
