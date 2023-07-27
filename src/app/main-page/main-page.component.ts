@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {tickerQuoteEndpoint} from "../ticker";
+import {FavoriteTickersService} from "../services/favorite-tickers.service";
 
 @Component({
   selector: 'app-main-page',
@@ -10,9 +11,11 @@ import {tickerQuoteEndpoint} from "../ticker";
 })
 export class MainPageComponent {
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private favoriteTickersService: FavoriteTickersService
+    ) {}
 
-  savedTickersList: string[] = [];
   savedTickers: {symbol: string, price: number}[] = []
 
   isLoadingTiles= true;
@@ -20,11 +23,11 @@ export class MainPageComponent {
 
 
   ngOnInit() {
-    this.savedTickersList = JSON.parse(`${localStorage.getItem('savedTickersList')}`);
-    if (this.savedTickersList.length == 0) this.isLoadingTiles = false;
-    this.isThereFavorites = this.savedTickersList.length > 0;
+    let savedTickersList = this.favoriteTickersService.getFavoriteTickers()
+    if (savedTickersList.length == 0) this.isLoadingTiles = false;
+    this.isThereFavorites = savedTickersList.length > 0;
     // GET tickers quotes
-    this.savedTickersList.forEach((tickerSymbol) => {
+    savedTickersList.forEach((tickerSymbol: any)  => {
       let quoteUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${tickerSymbol}&apikey=${environment.APIKEY}`
       let tickerQuote: tickerQuoteEndpoint = {
         "01. symbol": "",
