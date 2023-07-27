@@ -9,6 +9,7 @@ import 'chartjs-adapter-luxon';
 import zoomPlugin from 'chartjs-plugin-zoom';
 Chart.register(zoomPlugin);
 import { TranslocoService } from '@ngneat/transloco';
+import {ThemeService} from "../services/theme.service";
 
 
 @Component({
@@ -18,7 +19,13 @@ import { TranslocoService } from '@ngneat/transloco';
 })
 export class TickerPageComponent {
   // constructor() { }
-  constructor(private http: HttpClient, private route: ActivatedRoute, private translocoService: TranslocoService) {}
+  private isDark = false;
+  constructor(
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private translocoService: TranslocoService,
+    private themeService: ThemeService
+  ) {}
 
 
   tickerSymbol: string | null = "";
@@ -126,7 +133,7 @@ export class TickerPageComponent {
     });
 
   //   TODO: check if the ticker saved in storage
-    this.savedTickersList = JSON.parse(`${localStorage.getItem('savedTickersList')}`)
+    this.savedTickersList = JSON.parse(`${localStorage.getItem('savedTickersList')}`) ?? []
     let tickerFind = this.savedTickersList.find((symbol) => symbol==this.tickerSymbol);
     this.isTickerSaved = typeof tickerFind != "undefined";
     if (this.isTickerSaved) {
@@ -134,7 +141,17 @@ export class TickerPageComponent {
     }
     console.log("saved list", this.savedTickersList, this.isTickerSaved, tickerFind);
 
-    // this.createChart();
+  //   keep track of the theme changing
+    this.themeService.getCurrentTheme().subscribe(
+      newThem => {
+        this.isDark = (newThem == 'dark')
+        if (this.graphLoaded) {
+          this.chart.destroy()
+          this.createChart()
+        }
+      }
+    )
+
   }
 
   async onTickerTypeReceived(type: string) {
@@ -264,15 +281,27 @@ export class TickerPageComponent {
           {
             label: this.translocoService.translate('ticker.price'),
             data: this.chartPoints.ys,
-            backgroundColor: "#1D5D9B"
+            backgroundColor: this.isDark? "#91C8E4" : "#1D5D9B",
+            borderColor: this.isDark? "#91C8E4" : "#1D5D9B",
+            pointBackgroundColor: 'transparent', // set point background color to transparent
+            pointBorderColor: 'transparent', // set point border color to transparent
+            borderWidth: 1
           }
         ]
       },
       options: {
-        // aspectRatio:2.5,
+        color: this.isDark? "#FFFFFF" : "",
         scales: {
           x: {
             type: "time",
+            grid: {
+              color: this.isDark? "#5d5e5f" : "#e3e3e3",
+            }
+          },
+          y: {
+            grid: {
+              color: this.isDark? "#5d5e5f" : "#e3e3e3",
+            }
           }
         },
         plugins: {
