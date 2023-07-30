@@ -7,7 +7,7 @@
   <button class="btn btn-outline m-1" (click)="onChangeLanguage()">{{t('lan')}}</button>
 
   <mat-form-field class="w-56">
-    <input type="text" class="" (keyup)="onSearchKeyUp(searchKey.value)" [formControl]="searchFormControl" matInput [matAutocomplete]="autoSearch" [value]="searchKeyword" [placeholder]="t('search')" #searchKey>
+    <input type="text" class="" [formControl]="searchFormControl" matInput [matAutocomplete]="autoSearch" [value]="searchKeyword" [placeholder]="t('search')">
   </mat-form-field>
   <mat-autocomplete #autoSearch class="">
     <mat-option *ngFor="let item of searchTickerObservable | async" [value]="item.symbol" (click)="navigateToTicker(item.symbol)" (keyup.enter)="navigateToTicker(item.symbol)">
