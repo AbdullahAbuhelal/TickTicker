@@ -1,12 +1,7 @@
 import {Component} from '@angular/core';
-import { environment } from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {debounceTime, firstValueFrom, map, Observable, startWith} from "rxjs";
-import {FormControl} from "@angular/forms";
-import {Router} from "@angular/router";
 import { TranslocoService } from '@ngneat/transloco';
 import {ThemeService} from "../services/theme.service";
-import {StockApiService} from "../services/stock-api.service";
 
 
 
@@ -19,20 +14,16 @@ export class NavbarComponent {
 
   isDark = false;
 
-  searchKeyword = "";
 
   constructor(
     private http: HttpClient,
-    private router: Router,
     private translocoService: TranslocoService,
     private themeService: ThemeService,
-    private stockApiService: StockApiService
   ) {}
 
 
 
-  searchTickerObservable!: Observable<any>
-  searchFormControl = new FormControl("");
+
 
   ngOnInit() {
     if (this.getLanguage()=="ar") this.changeLanguageToArabic();
@@ -42,22 +33,8 @@ export class NavbarComponent {
       }
     )
 
-    this.searchFormControl.valueChanges
-      .pipe(
-      debounceTime(500),
-    ).subscribe(
-      keyword => {
-        console.log("value is ", keyword)
-        this.searchTickerObservable = this.stockApiService.getSearchResult(keyword || "")
-      }
-    )
   }
 
-  navigateToTicker(symbol: string) {
-    this.router.navigateByUrl("/").then(
-      () => this.router.navigate(["/tickers", symbol])
-    )
-  }
 
   onChangeLanguage() {
     let activeLanguage = this.translocoService.getActiveLang()

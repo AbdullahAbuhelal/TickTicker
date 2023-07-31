@@ -1,8 +1,7 @@
 {
   "navbar": {
     "logo": "تيكتيكر",
-    "lan": "E",
-    "search": "البحث عن رموز الشركات"
+    "lan": "E"
   },
   "main": {
     "hero": {
@@ -29,5 +28,9 @@
     "alert save": "تم حفظ الرمز {{tickerSymbol}} بنجاح",
     "alert remove": "تم إزالة الرمز {{tickerSymbol}} بنجاح",
     "reset-zoom": "إعادة ضبط التكبير"
+  },
+  "searchbar": {
+    "no-result": "لم يتم العثور على نتائج",
+    "search": "البحث عن رموز الشركات"
   }
 }

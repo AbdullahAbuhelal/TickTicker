@@ -20,6 +20,7 @@ import { TranslocoRootModule } from './transloco-root.module';
 import { LoadingTickerTileComponent } from './loading-ticker-tile/loading-ticker-tile.component';
 import { LoadinTickerSummaryCardComponent } from './loadin-ticker-summary-card/loadin-ticker-summary-card.component';
 import { LoadingPerformanceGraphCardComponent } from "./loading-performance-graph-card/loading-performance-graph-card.component";
+import {SearchbarComponent} from "./searchbar/searchbar.component";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { LoadingPerformanceGraphCardComponent } from "./loading-performance-grap
     TickerPerformanceCardComponent,
     LoadingTickerTileComponent,
     LoadinTickerSummaryCardComponent,
-    LoadingPerformanceGraphCardComponent
+    LoadingPerformanceGraphCardComponent,
+    SearchbarComponent
   ],
   imports: [
     BrowserModule,
