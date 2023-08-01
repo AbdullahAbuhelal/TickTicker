@@ -1,9 +1,5 @@
 import {Component} from '@angular/core';
-import { environment } from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import { firstValueFrom, map, Observable } from "rxjs";
-import {FormControl} from "@angular/forms";
-import {Router} from "@angular/router";
 import { TranslocoService } from '@ngneat/transloco';
 import {ThemeService} from "../services/theme.service";
 
@@ -18,19 +14,16 @@ export class NavbarComponent {
 
   isDark = false;
 
-  searchKeyword = "";
 
   constructor(
     private http: HttpClient,
-    private router: Router,
     private translocoService: TranslocoService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
   ) {}
 
 
 
-  searchTickerObservable!: Observable<any>
-  searchFormControl = new FormControl("");
+
 
   ngOnInit() {
     if (this.getLanguage()=="ar") this.changeLanguageToArabic();
@@ -39,26 +32,9 @@ export class NavbarComponent {
         this.isDark = (value == 'dark')
       }
     )
+
   }
 
-  onSearchKeyUp(value: string) {
-    // TODO: move this to 'ngOnInit' [I could not make it work so I did it this way]
-    this.searchKeyword = value;
-    let searchUrl = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + value +"&apikey=" + environment.APIKEY;
-    this.searchTickerObservable = this.http.get(searchUrl).pipe(
-      map(res => {
-        console.log("start mapping")
-        let searchObject = JSON.parse(JSON.stringify(res)).bestMatches;
-        console.log(searchObject)
-        return searchObject.map((data: any) => ({symbol: data["1. symbol"], name: data["2. name"]}))
-      })
-    );
-  }
-  navigateToTicker(symbol: string) {
-    this.router.navigateByUrl("/").then(
-      () => this.router.navigate(["/tickers", symbol])
-    )
-  }
 
   onChangeLanguage() {
     let activeLanguage = this.translocoService.getActiveLang()

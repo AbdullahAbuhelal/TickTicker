@@ -1,8 +1,7 @@
 {
   "navbar": {
     "logo": "TickTicker",
-    "lan": "ع",
-    "search": "Search Tickers"
+    "lan": "ع"
   },
   "main": {
     "hero": {
@@ -29,5 +28,9 @@
     "alert save": "{{tickerSymbol}} has been saved to favorites successfully!",
     "alert remove": "{{tickerSymbol}} has been removed from favorites successfully!",
     "reset-zoom": "Reset zoom"
+  },
+  "searchbar": {
+    "no-result": "No result found",
+    "search": "Search Tickers"
   }
 }
