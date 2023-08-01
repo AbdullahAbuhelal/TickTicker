@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {debounceTime, Observable} from "rxjs";
 import {FormControl} from "@angular/forms";
 import {Router} from "@angular/router";
@@ -7,7 +7,8 @@ import {StockApiService} from "../services/stock-api.service";
 @Component({
   selector: 'app-searchbar',
   templateUrl: './searchbar.component.html',
-  styleUrls: ['./searchbar.component.css']
+  styleUrls: ['./searchbar.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SearchbarComponent {
 
