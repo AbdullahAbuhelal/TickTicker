@@ -1,5 +1,4 @@
-.search-menu{
+#nav-searchbar{
   position: absolute;
-  top: 64px;
-  z-index: 1;
+  top: 4.5rem;
 }

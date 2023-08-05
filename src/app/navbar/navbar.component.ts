@@ -67,4 +67,7 @@ export class NavbarComponent {
     this.themeService.switchTheme(newTheme)
   }
 
+  onSearchClick() {
+    document.getElementById('nav-searchbar')?.classList.toggle('hidden')
+  }
 }
