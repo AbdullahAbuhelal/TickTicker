@@ -30,9 +30,9 @@ export class NavbarComponent {
     let theme = this.themeService.getCurrentTheme().subscribe(
       value => {
         this.isDark = (value == 'dark')
+        this.checkLogoPath()
       }
     )
-
   }
 
 
@@ -59,12 +59,19 @@ export class NavbarComponent {
   }
 
   languageKey = "lan";
+  logoPath = "./assets/icons/logo.png";
   getLanguage() {
     return localStorage.getItem(this.languageKey) || navigator.language;
   }
 
   switchTheme(newTheme: string) {
     this.themeService.switchTheme(newTheme)
+  }
+
+  private checkLogoPath() {
+    this.logoPath = (this.isDark)?
+      "./assets/icons/logo-dark.png"
+      : "./assets/icons/logo.png"
   }
 
   onSearchClick() {

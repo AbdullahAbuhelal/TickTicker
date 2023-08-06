@@ -1,7 +1,7 @@
-<div class="navbar bg-base-100 rounded shadow sticky top-1 left-0 z-10" *transloco="let t; read 'navbar'">
+<div class="navbar bg-base-100 rounded shadow shadow-neutral-content sticky top-1 left-0 z-10" *transloco="let t; read 'navbar'">
   <div class="flex-1">
     <a href="" class="btn btn-ghost normal-case text-xl">
-      <img src="./assets/icons/logo.png" alt="" class="h-7">
+      <img [src]="logoPath" alt="" class="h-7">
       {{t('logo')}}
     </a>
   </div>
