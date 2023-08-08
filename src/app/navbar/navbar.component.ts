@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import { TranslocoService } from '@ngneat/transloco';
 import {ThemeService} from "../services/theme.service";
@@ -76,5 +76,13 @@ export class NavbarComponent {
 
   onSearchClick() {
     document.getElementById('nav-searchbar')?.classList.toggle('hidden')
+    document.getElementById('search-input')?.focus()
+  }
+
+  // hide the searchbar when clicking outside it
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: KeyboardEvent) {
+    if (!document.getElementById('nav-searchbar')?.classList.contains('hidden'))
+      document.getElementById('nav-searchbar')?.classList.add('hidden')
   }
 }
