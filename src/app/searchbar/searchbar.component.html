@@ -1,6 +1,6 @@
 <div class="searchbar" *transloco="let t; read 'searchbar'">
   <mat-form-field>
-    <input type="text" [formControl]="searchFormControl" (keyup.enter)="navigateToTicker(searchInput.value)" matInput [matAutocomplete]="autoSearch" [placeholder]="t('search')" #searchInput>
+    <input id="search-input" type="text" [formControl]="searchFormControl" (keyup.enter)="navigateToTicker(searchInput.value)" matInput [matAutocomplete]="autoSearch" [placeholder]="t('search')" #searchInput>
   </mat-form-field>
   <mat-autocomplete #autoSearch>
     <div *ngIf="!noResult; else noResultTemp">

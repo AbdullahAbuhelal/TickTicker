@@ -76,6 +76,7 @@ export class NavbarComponent {
 
   onSearchClick() {
     document.getElementById('nav-searchbar')?.classList.toggle('hidden')
+    document.getElementById('search-input')?.focus()
   }
 
   // hide the searchbar when clicking outside it
