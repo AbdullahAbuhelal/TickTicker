@@ -9,8 +9,8 @@
       "bold": "Pulse",
       "span2": "of the market"
     },
-    "fav": "Favorites",
-    "no-fav": "No favorites saved!",
+    "fav": "Saved Tickers",
+    "no-fav": "No tickers are saved!",
     "no-tkr-price": "Could not get the stock price!"
   },
   "ticker": {
@@ -25,8 +25,8 @@
     "Save": "Save",
     "Saved": "Saved",
     "no-chart": "Could not load chart data!",
-    "alert save": "{{tickerSymbol}} has been saved to favorites successfully!",
-    "alert remove": "{{tickerSymbol}} has been removed from favorites successfully!",
+    "alert save": "{{tickerSymbol}} has been saved successfully!",
+    "alert remove": "{{tickerSymbol}} has been removed successfully!",
     "reset-zoom": "Reset zoom"
   },
   "searchbar": {

@@ -1,10 +1,18 @@
 <div class="main-body justify-center" *transloco="let t; read:'main'">
-  <div class="catch-phrase flex text-3xl m-10" *transloco="let t1; read:'main.hero'">
-    <p class="cursor-default">
-      <span class="font-bold m-1">{{t1('span1')}}</span>
-      <span class="text-7xl font-extrabold m-1">{{t1('bold')}}</span>
-      <span class="font-bold m-1 ">{{t1('span2')}}</span>
-    </p>
+  <div class="text-center m-10">
+    <div class="catch-phrase flex text-3xl m-1" *transloco="let t1; read:'main.hero'">
+      <p class="cursor-default">
+        <span class="font-bold m-1">{{t1('span1')}}</span>
+        <span class="text-7xl font-extrabold m-1">{{t1('bold')}}</span>
+        <span class="font-bold m-1 ">{{t1('span2')}}</span>
+      </p>
+    </div>
+    <div class="flex justify-center items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <app-searchbar class="m-2"></app-searchbar>
+    </div>
   </div>
   <p class="font-bold text-xl text-center">{{t('fav')}}</p>
   <div *ngIf="isLoadingTiles" class="flex flex-wrap justify-center w-full">
@@ -13,7 +21,7 @@
     <app-loading-ticker-tile></app-loading-ticker-tile>
   </div>
   <div *ngIf="!isLoadingTiles" class="flex flex-wrap justify-center w-full" >
-    <p *ngIf="!isThereFavorites" class="text-transparent/50 m-5">{{t('no-fav')}}</p>
+    <p *ngIf="!isThereFavorites" class="text-neutral-content m-5">{{t('no-fav')}}</p>
     <app-ticker-tile *ngFor="let item of savedTickers" [tickerSymbol]="item.symbol" [tickerPrice]="item.price"></app-ticker-tile>
   </div>
 </div>

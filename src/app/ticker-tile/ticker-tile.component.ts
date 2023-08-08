@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import {FavoriteTickersService} from "../services/favorite-tickers.service";
 
 @Component({
   selector: 'app-ticker-tile',
@@ -11,4 +12,13 @@ export class TickerTileComponent {
   @Input()
   tickerSymbol: string | undefined;
   protected readonly isNaN = isNaN;
+
+  constructor(
+    private favoriteTickerService: FavoriteTickersService
+  ) {
+  }
+
+  onRemoveTickerClick() {
+    this.favoriteTickerService.removeTicker(this.tickerSymbol || "")
+  }
 }

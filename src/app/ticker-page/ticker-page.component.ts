@@ -100,7 +100,7 @@ export class TickerPageComponent {
   ngOnInit() {
     // First get the ticker id from the current route.
     const routeParams = this.route.snapshot.paramMap;
-    this.tickerSymbol = routeParams.get('tickerSymbol') ?? "";
+    this.tickerSymbol = (routeParams.get('tickerSymbol') ?? "").toUpperCase();
 
     let quoteUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${this.tickerSymbol}&apikey=${environment.APIKEY}`
 
