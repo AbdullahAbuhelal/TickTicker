@@ -17,6 +17,7 @@ export class SearchbarComponent {
   searchFormControl = new FormControl("");
 
   navigateToTicker(symbol: string) {
+    if (symbol!="")
     this.router.navigateByUrl("/").then(
       () => this.router.navigate(["/tickers", symbol])
     )
