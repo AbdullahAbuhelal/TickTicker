@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Output, ViewEncapsulation} from '@angular/core';
 import {debounceTime, Observable} from "rxjs";
 import {FormControl} from "@angular/forms";
 import {Router} from "@angular/router";
@@ -16,11 +16,15 @@ export class SearchbarComponent {
   searchTickerObservable!: Observable<any>
   searchFormControl = new FormControl("");
 
+  @Output() notifyNavigated = new EventEmitter()
+
   navigateToTicker(symbol: string) {
-    if (symbol!="")
-    this.router.navigateByUrl("/").then(
-      () => this.router.navigate(["/tickers", symbol])
-    )
+    if (symbol!="") {
+      this.router.navigateByUrl("/").then(
+        () => this.router.navigate(["/tickers", symbol])
+      )
+      this.notifyNavigated.emit()
+    }
   }
 
   ngOnInit() {
