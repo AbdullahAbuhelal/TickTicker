@@ -1,15 +1,15 @@
 <div class="searchbar" *transloco="let t; read 'searchbar'">
   <mat-form-field>
-    <input id="search-input" type="text" [formControl]="searchFormControl" (keyup.enter)="navigateToTicker(searchInput.value)" matInput [matAutocomplete]="autoSearch" [placeholder]="t('search')" #searchInput>
+    <input id="search-input" type="text" [formControl]="searchFormControl" (keyup.enter)="navigateToTicker(searchInput.value); searchInput.value=''" matInput [matAutocomplete]="autoSearch" [placeholder]="t('search')" #searchInput>
   </mat-form-field>
   <mat-autocomplete #autoSearch>
-    <div *ngIf="!noResult; else noResultTemp">
-      <mat-option *ngFor="let item of searchTickerObservable | async" [value]="item.symbol" (click)="navigateToTicker(item.symbol)">
+    <div *ngIf="!noResult && isMenuShown; else noResultTemp">
+      <mat-option *ngFor="let item of searchTickerObservable | async" [value]="item.symbol" (click)="navigateToTicker(item.symbol); searchInput.value=''">
         {{item.symbol}} | {{item.name}}
       </mat-option>
     </div>
     <ng-template #noResultTemp>
-      <mat-option>
+      <mat-option *ngIf="isMenuShown">
         {{t('no-result')}}
       </mat-option>
     </ng-template>
