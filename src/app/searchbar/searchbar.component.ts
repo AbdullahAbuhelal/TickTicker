@@ -26,6 +26,7 @@ export class SearchbarComponent {
       )
       this.notifyNavigated.emit()
     }
+    this.isMenuShown = false
   }
 
   ngOnInit() {
