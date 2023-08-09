@@ -13,6 +13,7 @@ import {StockApiService} from "../services/stock-api.service";
 export class SearchbarComponent {
 
   noResult = false;
+  isMenuShown = false;
   searchTickerObservable!: Observable<any>
   searchFormControl = new FormControl("");
 
@@ -25,12 +26,14 @@ export class SearchbarComponent {
       )
       this.notifyNavigated.emit()
     }
+    this.isMenuShown = false
   }
 
   ngOnInit() {
     this.searchFormControl.valueChanges
       .pipe(
         debounceTime(500),
+
       ).subscribe(
       keyword => {
         this.searchTickerObservable = this.stockApiService.getSearchResult(keyword || "")
@@ -38,6 +41,7 @@ export class SearchbarComponent {
           this.noResult = value.length == 0
         })
         this.noResult = keyword?.length == 0
+        this.isMenuShown = keyword?.length != 0 || keyword == null
       }
     )
 
