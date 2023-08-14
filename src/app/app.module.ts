@@ -21,6 +21,7 @@ import { LoadingTickerTileComponent } from './Components/loading-ticker-tile/loa
 import { LoadinTickerSummaryCardComponent } from './Components/loadin-ticker-summary-card/loadin-ticker-summary-card.component';
 import { LoadingPerformanceGraphCardComponent } from "./Components/loading-performance-graph-card/loading-performance-graph-card.component";
 import {SearchbarComponent} from "./Components/searchbar/searchbar.component";
+import {SavedTickersAlertComponent} from "./Components/saved-tickers-alert/saved-tickers-alert.component";
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {SearchbarComponent} from "./Components/searchbar/searchbar.component";
     LoadingTickerTileComponent,
     LoadinTickerSummaryCardComponent,
     LoadingPerformanceGraphCardComponent,
-    SearchbarComponent
+    SearchbarComponent,
+    SavedTickersAlertComponent
   ],
   imports: [
     BrowserModule,

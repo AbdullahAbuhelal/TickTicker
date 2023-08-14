@@ -10,6 +10,8 @@ export class SavedTickersService {
   savedList: string[]
 
   private dynamicList = new BehaviorSubject<string[]>(this.getList())
+  private removedTicker = new BehaviorSubject<string>("")
+  private savedTicker = new BehaviorSubject<string>("")
 
   private getList() {
     return this.savedList
@@ -17,6 +19,12 @@ export class SavedTickersService {
 
   getFavoriteTickers() {
     return this.dynamicList.asObservable()
+  }
+  getSavedTicker() {
+    return this.savedTicker.asObservable()
+  }
+  getRemovedTicker() {
+    return this.removedTicker.asObservable()
   }
 
   isTickerSaved(ticker: string) {
@@ -29,12 +37,14 @@ export class SavedTickersService {
     this.savedList.splice(tickerIndex, 1);
     this.updateStorage()
     this.dynamicList.next(this.savedList)
+    this.removedTicker.next(ticker)
   }
 
   addTicker(ticker: string) {
     this.savedList.push(ticker)
     this.updateStorage()
     this.dynamicList.next(this.savedList)
+    this.savedTicker.next(ticker)
   }
 
   private updateStorage() {
