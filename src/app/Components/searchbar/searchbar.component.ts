@@ -2,7 +2,7 @@ import {Component, EventEmitter, Output, ViewEncapsulation} from '@angular/core'
 import {debounceTime, Observable} from "rxjs";
 import {FormControl} from "@angular/forms";
 import {Router} from "@angular/router";
-import {StockApiService} from "../services/stock-api.service";
+import {StockApiService} from "../../services/stock-api/stock-api.service";
 
 @Component({
   selector: 'app-searchbar',

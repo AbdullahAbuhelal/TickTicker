@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {FavoriteTickersService} from "../services/favorite-tickers.service";
+import {SavedTickersService} from "../../services/saved-tickers/saved-tickers.service";
 
 @Component({
   selector: 'app-ticker-tile',
@@ -14,7 +14,7 @@ export class TickerTileComponent {
   protected readonly isNaN = isNaN;
 
   constructor(
-    private favoriteTickerService: FavoriteTickersService
+    private favoriteTickerService: SavedTickersService
   ) {
   }
 

@@ -1,8 +1,8 @@
 import {Component, Input} from '@angular/core';
-import {environment} from "../../environments/environment";
+import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {tickerQuoteEndpoint} from "../ticker";
-import {FavoriteTickersService} from "../services/favorite-tickers.service";
+import {tickerQuoteEndpoint} from "../../ticker";
+import {SavedTickersService} from "../../services/saved-tickers/saved-tickers.service";
 
 @Component({
   selector: 'app-main-page',
@@ -13,7 +13,7 @@ export class MainPageComponent {
 
   constructor(
     private http: HttpClient,
-    private favoriteTickersService: FavoriteTickersService
+    private favoriteTickersService: SavedTickersService
     ) {}
 
   savedTickers: {symbol: string, price: number}[] = []

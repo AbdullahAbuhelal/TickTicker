@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
-import { tickerQuoteEndpoint} from "../ticker";
+import {environment} from "../../../environments/environment";
+import { tickerQuoteEndpoint} from "../../ticker";
 import {firstValueFrom} from "rxjs";
 import {Chart} from "chart.js/auto";
 import 'chartjs-adapter-luxon';
 import zoomPlugin from 'chartjs-plugin-zoom';
 Chart.register(zoomPlugin);
 import { TranslocoService } from '@ngneat/transloco';
-import {ThemeService} from "../services/theme.service";
-import {FavoriteTickersService} from "../services/favorite-tickers.service";
+import {ThemeService} from "../../services/theme/theme.service";
+import {SavedTickersService} from "../../services/saved-tickers/saved-tickers.service";
 
 
 @Component({
@@ -26,7 +26,7 @@ export class TickerPageComponent {
     private route: ActivatedRoute,
     private translocoService: TranslocoService,
     private themeService: ThemeService,
-    private favoriteTickerService: FavoriteTickersService
+    private favoriteTickerService: SavedTickersService
   ) {}
 
 

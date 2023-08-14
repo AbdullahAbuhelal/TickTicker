@@ -4,9 +4,9 @@ import {BehaviorSubject} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class FavoriteTickersService {
+export class SavedTickersService {
 
-  FavoriteTickersKey = 'savedTickersList'
+  savedTickersKey = 'savedTickersList'
   savedList: string[]
 
   private dynamicList = new BehaviorSubject<string[]>(this.getList())
@@ -42,7 +42,7 @@ export class FavoriteTickersService {
   }
 
   constructor() {
-    this.savedList = JSON.parse(`${localStorage.getItem(this.FavoriteTickersKey)}`) ?? []
+    this.savedList = JSON.parse(`${localStorage.getItem(this.savedTickersKey)}`) ?? []
     this.dynamicList.next(this.savedList)
   }
 }
