@@ -11,6 +11,7 @@ Chart.register(zoomPlugin);
 import { TranslocoService } from '@ngneat/transloco';
 import {ThemeService} from "../../services/theme/theme.service";
 import {SavedTickersService} from "../../services/saved-tickers/saved-tickers.service";
+import {StockApiService} from "../../services/stock-api/stock-api.service";
 
 
 @Component({
@@ -19,14 +20,14 @@ import {SavedTickersService} from "../../services/saved-tickers/saved-tickers.se
   styleUrls: ['./ticker-page.component.css']
 })
 export class TickerPageComponent {
-  // constructor() { }
   private isDark = false;
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
     private translocoService: TranslocoService,
     private themeService: ThemeService,
-    private favoriteTickerService: SavedTickersService
+    private favoriteTickerService: SavedTickersService,
+    private stockApiService: StockApiService
   ) {}
 
 
@@ -97,39 +98,22 @@ export class TickerPageComponent {
 
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     // First get the ticker id from the current route.
     const routeParams = this.route.snapshot.paramMap;
     this.tickerSymbol = (routeParams.get('tickerSymbol') ?? "").toUpperCase();
 
-    let quoteUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${this.tickerSymbol}&apikey=${environment.APIKEY}`
+    // Get the summary for the stock
+    let fullSummary = await this.stockApiService.getStockSummary(this.tickerSymbol)
+    this.tickerPrice = fullSummary["05. price"];
+    this.tickerHigh = fullSummary["03. high"];
+    this.tickerLow = fullSummary["04. low"];
+    this.isSummaryLoading = false
+    this.isSummaryFailed = isNaN(this.tickerPrice)
 
 
-    this.http.get(quoteUrl).subscribe(
-      (data) => {
-
-        this.tickerQuote = JSON.parse(JSON.stringify(data))["Global Quote"];
-        console.log(this.tickerQuote);
-        try {
-          this.tickerPrice = this.tickerQuote["05. price"];
-          this.tickerHigh = this.tickerQuote["03. high"];
-          this.tickerLow = this.tickerQuote["04. low"];
-        } catch (e) {
-          console.log("summary failed");
-          this.isSummaryFailed = true;
-        }
-        this.isSummaryLoading = false;
-      },
-      (error) => {
-        console.log('something went wrong')
-        console.log(error.toString());
-        this.isSummaryLoading = false;
-        this.isSummaryFailed = true;
-      }
-    )
-
-      this.getTimeSeries("Intraday", this.tickerSymbol).then(() => {
-      this.extractCoordinatesFromTimeSeriesJS(this.tickerTimeSeriesIntraday["Time Series (5min)"], "Intraday")
+    this.getTimeSeries("Intraday", this.tickerSymbol).then(() => {
+    this.extractCoordinatesFromTimeSeriesJS(this.tickerTimeSeriesIntraday["Time Series (5min)"], "Intraday")
     });
 
   //  check if the ticker saved in storage

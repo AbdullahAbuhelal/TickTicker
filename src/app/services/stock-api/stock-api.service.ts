@@ -42,17 +42,9 @@ export class StockApiService {
     let getObservable = this.http.get(quoteUrl)
     let data = await firstValueFrom(getObservable)
     try {
-      tickerQuote = JSON.parse(JSON.stringify(data))["Global Quote"];
+      let tmpTickerQuote = JSON.parse(JSON.stringify(data))["Global Quote"];
+      if (tmpTickerQuote != undefined) tickerQuote = tmpTickerQuote
     } catch (e) {}
-
-    // subscribe(
-    //   (data) => {
-    //     try {
-    //       tickerQuote = JSON.parse(JSON.stringify(data))["Global Quote"];
-    //     } catch (e) {}
-    //   },
-    //   (error) => {}
-    // )
     return tickerQuote
   }
 
