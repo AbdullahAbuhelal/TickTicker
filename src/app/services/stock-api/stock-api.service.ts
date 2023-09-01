@@ -53,6 +53,34 @@ export class StockApiService {
     return summary["05. price"] ?? NaN
   }
 
+  /**
+   * get the time series for a certain stock
+   *
+   * @param type - one of three types [Intraday, Weekly, and Monthly]
+   * @param symbol - the stock ticker symbol
+   * @return a JSON formatted time series of the stock prices, if it cannot get the time series it will return undefined object
+   * **/
+  async getTimeSeries(type: string, symbol: string | null) {
+    // this.isGraphLoading = true;
+    // console.log("graph by id", document.getElementById("performanceGraph"))
+    let fun = (type=="Intraday")? "TIME_SERIES_INTRADAY" :
+      (type=="Monthly")? "TIME_SERIES_MONTHLY" :
+        "TIME_SERIES_WEEKLY";
+    let url = `https://www.alphavantage.co/query?function=${fun}&symbol=${symbol}&apikey=${environment.APIKEY}`;
+    if (type=="Intraday") url +="&interval=5min";
+    try {
+      let observableTS = this.http.get(url);
+      let timeSeriesObject = await firstValueFrom(observableTS)
+      return  JSON.parse(JSON.stringify(timeSeriesObject))
+
+    } catch (e) {
+      console.log("Cannot fetch time series", e)
+      return undefined
+      // this.isChartFailed = true;
+    }
+    // this.isGraphLoading = false;
+  }
+
   constructor(
     private http: HttpClient
   ) { }

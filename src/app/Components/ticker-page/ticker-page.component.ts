@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
 import { tickerQuoteEndpoint} from "../../ticker";
-import {firstValueFrom} from "rxjs";
 import {Chart} from "chart.js/auto";
 import 'chartjs-adapter-luxon';
 import zoomPlugin from 'chartjs-plugin-zoom';
@@ -22,7 +19,6 @@ import {StockApiService} from "../../services/stock-api/stock-api.service";
 export class TickerPageComponent {
   private isDark = false;
   constructor(
-    private http: HttpClient,
     private route: ActivatedRoute,
     private translocoService: TranslocoService,
     private themeService: ThemeService,
@@ -174,36 +170,26 @@ export class TickerPageComponent {
 
   async getTimeSeries(type: string, symbol: string | null) {
     this.isGraphLoading = true;
-    console.log("graph by id", document.getElementById("performanceGraph"))
-    let fun = (type=="Intraday")? "TIME_SERIES_INTRADAY" :
-      (type=="Monthly")? "TIME_SERIES_MONTHLY" :
-    "TIME_SERIES_WEEKLY";
-    let url = `https://www.alphavantage.co/query?function=${fun}&symbol=${symbol}&apikey=${environment.APIKEY}`;
-    if (type=="Intraday") url +="&interval=5min";
-    console.log("url before calling")
-    console.log(url)
-    try {
-      let observableTS = this.http.get(url);
-      let timeSeriesObject = await firstValueFrom(observableTS)
-      let timeSeries = JSON.parse(JSON.stringify(timeSeriesObject))
 
-      console.log("time series after fetching", timeSeries)
+    let timeSeries = await this.stockApiService.getTimeSeries(type, symbol)
 
-      if (type=="Intraday") {
+    let isFailed = typeof timeSeries === 'undefined'
+    if (!isFailed) {
+      if (type == "Intraday") {
         this.tickerTimeSeriesIntraday = timeSeries;
         this.isIntradayLoaded = true;
-      } if(type=="Weekly") {
+      }
+      if (type == "Weekly") {
         this.tickerTimeSeriesWeekly = timeSeries;
         this.isWeeklyLoaded = true;
-      } if (type=="Monthly") {
+      }
+      if (type == "Monthly") {
         this.tickerTimeSeriesMonthly = timeSeries;
         this.isMonthlyLoaded = true;
       }
-    } catch (e) {
-      console.log("Cannot fetch time series", e)
-      this.isChartFailed = true;
     }
-    this.isGraphLoading = false;
+    this.isGraphLoading = false
+    this.isChartFailed = isFailed
   }
 
 
@@ -353,5 +339,3 @@ export class TickerPageComponent {
     this.chart.resetZoom();
   }
 }
-
-
