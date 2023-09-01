@@ -18,7 +18,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {ReactiveFormsModule} from "@angular/forms";
 import { TranslocoRootModule } from './transloco-root.module';
 import { LoadingTickerTileComponent } from './Components/loading-ticker-tile/loading-ticker-tile.component';
-import { LoadinTickerSummaryCardComponent } from './Components/loadin-ticker-summary-card/loadin-ticker-summary-card.component';
+import { LoadingTickerSummaryCardComponent } from './Components/loading-ticker-summary-card/loading-ticker-summary-card.component';
 import { LoadingPerformanceGraphCardComponent } from "./Components/loading-performance-graph-card/loading-performance-graph-card.component";
 import {SearchbarComponent} from "./Components/searchbar/searchbar.component";
 import {SavedTickersAlertComponent} from "./Components/saved-tickers-alert/saved-tickers-alert.component";
@@ -32,7 +32,7 @@ import {SavedTickersAlertComponent} from "./Components/saved-tickers-alert/saved
     TickerPageComponent,
     TickerPerformanceCardComponent,
     LoadingTickerTileComponent,
-    LoadinTickerSummaryCardComponent,
+    LoadingTickerSummaryCardComponent,
     LoadingPerformanceGraphCardComponent,
     SearchbarComponent,
     SavedTickersAlertComponent
