@@ -1,7 +1,7 @@
 import {Component, HostListener} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import { TranslocoService } from '@ngneat/transloco';
-import {ThemeService} from "../services/theme.service";
+import {ThemeService} from "../../services/theme/theme.service";
 
 
 

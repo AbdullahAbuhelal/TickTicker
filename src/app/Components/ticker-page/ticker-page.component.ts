@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
-import { tickerQuoteEndpoint} from "../ticker";
-import {firstValueFrom} from "rxjs";
+import { tickerQuoteEndpoint} from "../../ticker";
 import {Chart} from "chart.js/auto";
 import 'chartjs-adapter-luxon';
 import zoomPlugin from 'chartjs-plugin-zoom';
 Chart.register(zoomPlugin);
 import { TranslocoService } from '@ngneat/transloco';
-import {ThemeService} from "../services/theme.service";
-import {FavoriteTickersService} from "../services/favorite-tickers.service";
+import {ThemeService} from "../../services/theme/theme.service";
+import {SavedTickersService} from "../../services/saved-tickers/saved-tickers.service";
+import {StockApiService} from "../../services/stock-api/stock-api.service";
 
 
 @Component({
@@ -19,14 +17,13 @@ import {FavoriteTickersService} from "../services/favorite-tickers.service";
   styleUrls: ['./ticker-page.component.css']
 })
 export class TickerPageComponent {
-  // constructor() { }
   private isDark = false;
   constructor(
-    private http: HttpClient,
     private route: ActivatedRoute,
     private translocoService: TranslocoService,
     private themeService: ThemeService,
-    private favoriteTickerService: FavoriteTickersService
+    private favoriteTickerService: SavedTickersService,
+    private stockApiService: StockApiService
   ) {}
 
 
@@ -97,39 +94,22 @@ export class TickerPageComponent {
 
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     // First get the ticker id from the current route.
     const routeParams = this.route.snapshot.paramMap;
     this.tickerSymbol = (routeParams.get('tickerSymbol') ?? "").toUpperCase();
 
-    let quoteUrl = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${this.tickerSymbol}&apikey=${environment.APIKEY}`
+    // Get the summary for the stock
+    let fullSummary = await this.stockApiService.getStockSummary(this.tickerSymbol)
+    this.tickerPrice = fullSummary["05. price"];
+    this.tickerHigh = fullSummary["03. high"];
+    this.tickerLow = fullSummary["04. low"];
+    this.isSummaryLoading = false
+    this.isSummaryFailed = isNaN(this.tickerPrice)
 
 
-    this.http.get(quoteUrl).subscribe(
-      (data) => {
-
-        this.tickerQuote = JSON.parse(JSON.stringify(data))["Global Quote"];
-        console.log(this.tickerQuote);
-        try {
-          this.tickerPrice = this.tickerQuote["05. price"];
-          this.tickerHigh = this.tickerQuote["03. high"];
-          this.tickerLow = this.tickerQuote["04. low"];
-        } catch (e) {
-          console.log("summary failed");
-          this.isSummaryFailed = true;
-        }
-        this.isSummaryLoading = false;
-      },
-      (error) => {
-        console.log('something went wrong')
-        console.log(error.toString());
-        this.isSummaryLoading = false;
-        this.isSummaryFailed = true;
-      }
-    )
-
-      this.getTimeSeries("Intraday", this.tickerSymbol).then(() => {
-      this.extractCoordinatesFromTimeSeriesJS(this.tickerTimeSeriesIntraday["Time Series (5min)"], "Intraday")
+    this.getTimeSeries("Intraday", this.tickerSymbol).then(() => {
+    this.extractCoordinatesFromTimeSeriesJS(this.tickerTimeSeriesIntraday["Time Series (5min)"], "Intraday")
     });
 
   //  check if the ticker saved in storage
@@ -190,36 +170,26 @@ export class TickerPageComponent {
 
   async getTimeSeries(type: string, symbol: string | null) {
     this.isGraphLoading = true;
-    console.log("graph by id", document.getElementById("performanceGraph"))
-    let fun = (type=="Intraday")? "TIME_SERIES_INTRADAY" :
-      (type=="Monthly")? "TIME_SERIES_MONTHLY" :
-    "TIME_SERIES_WEEKLY";
-    let url = `https://www.alphavantage.co/query?function=${fun}&symbol=${symbol}&apikey=${environment.APIKEY}`;
-    if (type=="Intraday") url +="&interval=5min";
-    console.log("url before calling")
-    console.log(url)
-    try {
-      let observableTS = this.http.get(url);
-      let timeSeriesObject = await firstValueFrom(observableTS)
-      let timeSeries = JSON.parse(JSON.stringify(timeSeriesObject))
 
-      console.log("time series after fetching", timeSeries)
+    let timeSeries = await this.stockApiService.getTimeSeries(type, symbol)
 
-      if (type=="Intraday") {
+    let isFailed = typeof timeSeries === 'undefined'
+    if (!isFailed) {
+      if (type == "Intraday") {
         this.tickerTimeSeriesIntraday = timeSeries;
         this.isIntradayLoaded = true;
-      } if(type=="Weekly") {
+      }
+      if (type == "Weekly") {
         this.tickerTimeSeriesWeekly = timeSeries;
         this.isWeeklyLoaded = true;
-      } if (type=="Monthly") {
+      }
+      if (type == "Monthly") {
         this.tickerTimeSeriesMonthly = timeSeries;
         this.isMonthlyLoaded = true;
       }
-    } catch (e) {
-      console.log("Cannot fetch time series", e)
-      this.isChartFailed = true;
     }
-    this.isGraphLoading = false;
+    this.isGraphLoading = false
+    this.isChartFailed = isFailed
   }
 
 
@@ -369,5 +339,3 @@ export class TickerPageComponent {
     this.chart.resetZoom();
   }
 }
-
-

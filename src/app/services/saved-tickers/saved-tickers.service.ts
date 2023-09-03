@@ -4,12 +4,14 @@ import {BehaviorSubject} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class FavoriteTickersService {
+export class SavedTickersService {
 
-  FavoriteTickersKey = 'savedTickersList'
+  savedTickersKey = 'savedTickersList'
   savedList: string[]
 
   private dynamicList = new BehaviorSubject<string[]>(this.getList())
+  private removedTicker = new BehaviorSubject<string>("")
+  private savedTicker = new BehaviorSubject<string>("")
 
   private getList() {
     return this.savedList
@@ -17,6 +19,12 @@ export class FavoriteTickersService {
 
   getFavoriteTickers() {
     return this.dynamicList.asObservable()
+  }
+  getSavedTicker() {
+    return this.savedTicker.asObservable()
+  }
+  getRemovedTicker() {
+    return this.removedTicker.asObservable()
   }
 
   isTickerSaved(ticker: string) {
@@ -29,12 +37,14 @@ export class FavoriteTickersService {
     this.savedList.splice(tickerIndex, 1);
     this.updateStorage()
     this.dynamicList.next(this.savedList)
+    this.removedTicker.next(ticker)
   }
 
   addTicker(ticker: string) {
     this.savedList.push(ticker)
     this.updateStorage()
     this.dynamicList.next(this.savedList)
+    this.savedTicker.next(ticker)
   }
 
   private updateStorage() {
@@ -42,7 +52,7 @@ export class FavoriteTickersService {
   }
 
   constructor() {
-    this.savedList = JSON.parse(`${localStorage.getItem(this.FavoriteTickersKey)}`) ?? []
+    this.savedList = JSON.parse(`${localStorage.getItem(this.savedTickersKey)}`) ?? []
     this.dynamicList.next(this.savedList)
   }
 }
