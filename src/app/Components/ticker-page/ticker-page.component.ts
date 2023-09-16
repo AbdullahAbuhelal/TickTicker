@@ -255,6 +255,7 @@ export class TickerPageComponent {
         ]
       },
       options: {
+        maintainAspectRatio: false,
         color: this.isDark? "#FFFFFF" : "",
         scales: {
           x: {
