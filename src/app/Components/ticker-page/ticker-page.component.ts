@@ -99,6 +99,9 @@ export class TickerPageComponent {
     const routeParams = this.route.snapshot.paramMap;
     this.tickerSymbol = (routeParams.get('tickerSymbol') ?? "").toUpperCase();
 
+    // change the website title to 'TicTicker | ticker-symbol'
+    document.title = `TicTicker | ${this.tickerSymbol}`
+
     // Get the summary for the stock
     let fullSummary = await this.stockApiService.getStockSummary(this.tickerSymbol)
     this.tickerPrice = fullSummary["05. price"];

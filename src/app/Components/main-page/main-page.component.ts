@@ -20,6 +20,9 @@ export class MainPageComponent {
   isThereFavorites = false;
 
   ngOnInit() {
+    // change the website title to 'TicTicker'
+    document.title = "TicTicker"
+
     this.favoriteTickersService.getFavoriteTickers().subscribe(
       (savedTickersList) => {
         this.savedTickers = []
