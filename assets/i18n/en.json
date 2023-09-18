@@ -1,0 +1,36 @@
+{
+  "navbar": {
+    "logo": "TickTicker",
+    "lan": "ع"
+  },
+  "main": {
+    "hero": {
+      "span1": "The",
+      "bold": "Pulse",
+      "span2": "of the market"
+    },
+    "fav": "Saved Tickers",
+    "no-fav": "No tickers are saved!",
+    "no-tkr-price": "Could not get the stock price!"
+  },
+  "ticker": {
+    "summary": "Stock Summary",
+    "price": "Price",
+    "high": "High",
+    "low": "Low",
+    "no-summary": "Could not get the stock summary!",
+    "Intraday": "Intraday",
+    "Weekly": "Weekly",
+    "Monthly": "Monthly",
+    "Save": "Save",
+    "Saved": "Saved",
+    "no-chart": "Could not load chart data!",
+    "alert save": "{{tickerSymbol}} has been saved successfully!",
+    "alert remove": "{{tickerSymbol}} has been removed successfully!",
+    "reset-zoom": "Reset zoom"
+  },
+  "searchbar": {
+    "no-result": "No result found",
+    "search": "Search Tickers"
+  }
+}
