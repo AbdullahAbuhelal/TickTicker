@@ -1,27 +1,36 @@
 # TicTicker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.0.
+TickTicker is an Angular application that displays current and previous days' ticker prices. It uses an API to fetch data and includes charts to relate the personal project to the project management tools for the main platform. The project was extended to support multiple languages (Arabic and English) and dark and light themes.
 
-## Development server
+## Demo
+Find a live demo for the application [here](https://abdullahabuhelal.github.io/TickTicker/).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Screenshots 
+![Main page](./screenshots/main-page.png)
+![Main page - dark](./screenshots/main-page-dark.png)
+![Ticker page](./screenshots/ticker-page.png)
 
-## Code scaffolding
+## Installation Guide
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Requirements
+- Angular Cli v16
+- API Key form [Alphavantage](https://www.alphavantage.co/support/#api-key)
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Installation
+1. Clone the repository using this command 
+  ```bash
+  git clone https://github.com/AbdullahAbuhelal/TickTicker.git
+  ```
+2. Run this command to install missing packages
+```bash
+npm install
+```
+3. Create `environment.ts` file in the directory `TickTicker/src/app/environments/`.
+4. In the `environment.ts` file, past the following code with replacing `YOURAPIKEY` with your API key.
+```text
+export const environment = {
+  production: false,
+  APIKEY: "YOURAPIKEY"
+};
+```
+5. Run `ng serve` and navigate to `http://localhost:4200/`.
